@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Student Scheduler</string>
+    <string name="start_icon_desc">Yellow background with a blue graduate hat</string>
+    <string name="enter_button">Enter</string>
+    <string name="home_screen_title">Student Scheduler</string>
+    <string name="term_list_title">Term List</string>
+    <string name="term_details_title">Term Details</string>
+    <string name="course_list_title">Course List</string>
+    <string name="course_details_title">Course Details</string>
+    <string name="assessment_list_title">Assessment List</string>
+    <string name="assessment_details_title">Assessment Details</string>
+    <string name="floating_add_desc">Blue plus sign</string>
+</resources>
