@@ -6,4 +6,5 @@ plugins {
 
 ext{
     room_version = "2.4.3"
+    compileSdkVersion = 33
 }

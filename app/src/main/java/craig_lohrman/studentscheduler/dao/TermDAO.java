@@ -16,15 +16,15 @@ public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Term term);
 
-    @Update
-    void update(Term term);
-
     @Delete
     void delete(Term term);
 
-    @Query("SELECT * FROM Term ORDER BY termName ASC")
-    List<Term> getAllParts();
+    @Update
+    void update(Term term);
 
-    @Query("SELECT * FROM Term WHERE termName = :termName ORDER BY termName ASC")
-    List<Term> getAllAssociatedParts(String termName);
+    @Query("SELECT * FROM Term ORDER BY termID")
+    List<Term> getAllTerms();
+
+    @Query("SELECT * FROM Term WHERE termID = :termID ORDER BY termID ASC")
+    List<Term> getAllAssociatedTerms(int termID);
 }

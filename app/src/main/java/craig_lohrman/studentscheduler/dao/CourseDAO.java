@@ -22,9 +22,6 @@ public interface CourseDAO {
     @Delete
     void delete(Course course);
 
-    @Query("SELECT * FROM Course ORDER BY cousreName ASC")
-    List<Course> getAllParts();
-
-    @Query("SELECT * FROM Course WHERE courseName = :courseName ORDER BY courseName ASC")
-    List<Course> getAllAssociatedParts(String courseName);
+    @Query("SELECT * FROM Course ORDER BY courseID ASC")
+    List<Course> getAllCourses();
 }

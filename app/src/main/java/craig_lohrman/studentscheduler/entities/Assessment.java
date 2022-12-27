@@ -1,13 +1,20 @@
 package craig_lohrman.studentscheduler.entities;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "Assessment")
 public class Assessment {
 
+    @PrimaryKey(autoGenerate = true)
+    private int assessmentID;
     private String assessmentType;
     private String assessmentName;
     private String assessmentStartDate;
     private String assessmentEndDate;
 
-    public Assessment(String assessmentType, String assessmentName, String assessmentStartDate, String assessmentEndDate) {
+    public Assessment(int assessmentID, String assessmentType, String assessmentName, String assessmentStartDate, String assessmentEndDate) {
+        this.assessmentID = assessmentID;
         this.assessmentType = assessmentType;
         this.assessmentName = assessmentName;
         this.assessmentStartDate = assessmentStartDate;
@@ -15,6 +22,10 @@ public class Assessment {
     }
 
     public Assessment() { }
+
+    public int getAssessmentID() {
+        return assessmentID;
+    }
 
     public String getAssessmentType() {
         return assessmentType;
@@ -30,6 +41,10 @@ public class Assessment {
 
     public String getAssessmentEndDate() {
         return assessmentEndDate;
+    }
+
+    public void setAssessmentID(int assessmentID) {
+        this.assessmentID = assessmentID;
     }
 
     public void setAssessmentType(String assessmentType) {
