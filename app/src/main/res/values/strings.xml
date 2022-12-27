@@ -10,4 +10,5 @@
     <string name="assessment_list_title">Assessment List</string>
     <string name="assessment_details_title">Assessment Details</string>
     <string name="floating_add_desc">Blue plus sign</string>
+    <string name="add_sample_data">Add Sample Data</string>
 </resources>
