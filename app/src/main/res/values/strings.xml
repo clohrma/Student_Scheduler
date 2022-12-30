@@ -11,4 +11,10 @@
     <string name="assessment_details_title">Assessment Details</string>
     <string name="floating_add_desc">Blue plus sign</string>
     <string name="add_sample_data">Add Sample Data</string>
+    <string name="term_id">Term ID</string>
+    <string name="term_name">Term Name</string>
+    <string name="term_start">Term Start Date</string>
+    <string name="term_end">Term End Date</string>
+    <string name="save_term">Save</string>
+    <string name="delete_term">Delete</string>
 </resources>
