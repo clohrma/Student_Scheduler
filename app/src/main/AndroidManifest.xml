@@ -16,15 +16,6 @@
             android:name=".UI.AssessmentDetails"
             android:exported="false"
             android:label="@string/assessment_details_title"
-            android:parentActivityName=".UI.AssessmentList">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UI.AssessmentList"
-            android:exported="false"
-            android:label="@string/assessment_list_title"
             android:parentActivityName=".UI.CourseDetails">
             <meta-data
                 android:name="android.app.lib_name"
@@ -49,19 +40,10 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.CourseList"
-            android:exported="false"
-            android:label="@string/course_list_title"
-            android:parentActivityName=".UI.TermDetails">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".UI.CourseDetails"
             android:exported="false"
             android:label="@string/course_details_title"
-            android:parentActivityName=".UI.CourseList">
+            android:parentActivityName=".UI.TermDetails">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

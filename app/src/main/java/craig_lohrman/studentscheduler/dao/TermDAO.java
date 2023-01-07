@@ -16,11 +16,11 @@ public interface TermDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Term term);
 
-    @Delete
-    void delete(Term term);
-
     @Update
     void update(Term term);
+
+    @Delete
+    void delete(Term term);
 
     @Query("SELECT * FROM Term ORDER BY termID")
     List<Term> getAllTerms();

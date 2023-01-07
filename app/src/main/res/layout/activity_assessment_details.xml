@@ -1,8 +1,158 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UI.AssessmentDetails">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/assessment_name"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/courseNameET"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:autofillHints="courseNameET"
+                android:hint="@string/assessment_name_ex"
+                android:inputType="text"
+                android:textColorHint="#757575" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/assessment_start_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/courseStartDateET"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:autofillHints="startDate"
+                android:hint="@string/assessment_start_date_ex"
+                android:inputType="date"
+                android:textColorHint="#757575" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/assessment_end_date"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/courseEndDateET"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:autofillHints="endDate"
+                android:hint="@string/assessment_end_date_ex"
+                android:inputType="date"
+                android:textColorHint="#757575" />
+
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/courseStatusRBGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <RadioButton
+                android:id="@+id/inProgressRB"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:checked="true"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/performance_RB" />
+
+            <RadioButton
+                android:id="@+id/completedRB"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_margin="2dp"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:text="@string/objective_RB"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/saveAssessment"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="5dp"
+                android:text="@string/save_term"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <Button
+                android:id="@+id/deleteAssessment"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="195dp"
+                android:layout_height="wrap_content"
+                android:text="@string/delete_term"
+                app:layout_constraintRight_toRightOf="parent" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/assessmentDetailsFAB"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/floating_add_desc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/add_36"
+        style="?android:attr/buttonBarButtonStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

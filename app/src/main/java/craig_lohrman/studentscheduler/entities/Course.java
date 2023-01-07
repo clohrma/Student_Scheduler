@@ -11,15 +11,15 @@ public class Course {
     private String courseName;
     private String courseStartDate;
     private String courseEndDate;
+    private int courseTermID;
 
-    public Course(int courseID, String courseName, String courseStartDate, String courseEndDate) {
+    public Course(int courseID, String courseName, String courseStartDate, String courseEndDate, int courseTermID) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
+        this.courseTermID = courseTermID;
     }
-
-    public Course() { }
 
     public int getCourseID() {
         return courseID;
@@ -37,6 +37,10 @@ public class Course {
         return courseEndDate;
     }
 
+    public int getCourseTermID() {
+        return courseTermID;
+    }
+
     public void setCourseID(int courseID) {
         this.courseID = courseID;
     }
@@ -51,5 +55,9 @@ public class Course {
 
     public void setCourseEndDate(String courseEndDate) {
         this.courseEndDate = courseEndDate;
+    }
+
+    public void setCourseTermID(int courseTermID) {
+        this.courseTermID = courseTermID;
     }
 }

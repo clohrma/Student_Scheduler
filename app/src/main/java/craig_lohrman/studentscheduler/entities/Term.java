@@ -19,8 +19,6 @@ public class Term {
         this.termEndDate = termEndDate;
     }
 
-    public Term() { }
-
     public int getTermID() {
         return termID;
     }

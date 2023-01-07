@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,9 +10,8 @@
     <ScrollView
         android:id="@+id/termDetailsScrollView"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="10dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -26,34 +26,21 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/term_id" />
-
-                <TextView
-                    android:id="@+id/termIDTextView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="1" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
-                    android:paddingRight="25dp"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/term_name" />
 
                 <EditText
-                    android:id="@+id/termNameEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="Freshmen Fall Term" />
+                    android:id="@+id/termNameET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:inputType="text"
+                    android:autofillHints="name"
+                    android:hint="@string/term_sample_text" />
 
             </LinearLayout>
 
@@ -63,15 +50,21 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/term_start" />
 
                 <EditText
-                    android:id="@+id/termStartDateEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="01/01/2022" />
+                    android:id="@+id/termStartDateET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:inputType="date"
+                    android:autofillHints="01/01/2023"
+                    android:hint="@string/term_start_date_sample" />
 
             </LinearLayout>
 
@@ -81,48 +74,53 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="125dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
                     android:text="@string/term_end" />
 
                 <EditText
-                    android:id="@+id/termEndDateEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:hint="01/01/2022" />
+                    android:id="@+id/termEndDateET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:inputType="date"
+                    android:autofillHints="01/01/2023"
+                    android:hint="@string/term_end_date_sample" />
 
             </LinearLayout>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/saveTerm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="60dp"
-                    android:text="@string/save_term" />
+                    android:text="@string/save_term"
+                    style="?android:attr/buttonBarButtonStyle" />
 
                 <Button
                     android:id="@+id/deleteTerm"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
-
-                    android:layout_marginHorizontal="50dp"
                     android:text="@string/delete_term"
-                    app:layout_constraintRight_toRightOf="parent" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
+                    app:layout_constraintRight_toRightOf="parent"
+                    style="?android:attr/buttonBarButtonStyle" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/termDetailsCourseListRecycler"
+        android:id="@+id/courseDetailsRecycler"
         android:layout_width="match_parent"
-        android:layout_height="440dp"
+        android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/termDetailsFAB"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/termDetailsScrollView" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -132,7 +130,8 @@
         android:clickable="true"
         android:contentDescription="@string/floating_add_desc"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_24" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/add_36"
+        style="?android:attr/buttonBarButtonStyle"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

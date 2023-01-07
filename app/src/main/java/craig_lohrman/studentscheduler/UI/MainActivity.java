@@ -1,15 +1,18 @@
 package craig_lohrman.studentscheduler.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
+import craig_lohrman.studentscheduler.entities.Assessment;
+import craig_lohrman.studentscheduler.entities.Course;
+import craig_lohrman.studentscheduler.entities.Term;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,11 +35,29 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.addSampleData:
-                /*Product product = new Product(0, "Bicycle", 100.0);
                 Repository repository = new Repository(getApplication());
-                repository.insert(product);
-                Part part = new Part(0, "Wheel", 10.0, 1);
-                repository.insert(part);*/
+
+                Term term = new Term(0, "Term 1", "01-01-2023", "02-01-2023");
+                Term term2 = new Term(0, "Term 2", "02-01-2023", "03-01-2023");
+                Term term3 = new Term(0, "Term 3", "03-01-2023", "04-01-2023");
+                repository.insert(term);
+                repository.insert(term2);
+                repository.insert(term3);
+
+                Course course = new Course(0, "Course 1", "01-01-2023", "02-01-2023", 1);
+                Course course2 = new Course(0, "Course 2", "02-01-2023", "03-01-2023", 2);
+                Course course3 = new Course(0, "Course 3", "03-01-2023", "04-01-2023", 3);
+                repository.insert(course);
+                repository.insert(course2);
+                repository.insert(course3);
+
+                Assessment assessment = new Assessment(0, "Assessment 1", "01-01-2023", "02-01-2023","Performance");
+                Assessment assessment2 = new Assessment(0, "Assessment 2", "02-01-2023", "03-01-2023","Objective");
+                Assessment assessment3 = new Assessment(0, "Assessment 3", "03-01-2023", "04-01-2023","Performance");
+                repository.insert(assessment);
+                repository.insert(assessment2);
+                repository.insert(assessment3);
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
