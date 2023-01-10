@@ -53,9 +53,9 @@ public class MainActivity extends AppCompatActivity {
                 repository.insert(course2);
                 repository.insert(course3);
 
-                Assessment assessment = new Assessment(0, "Assessment 1", "01-01-2023", "02-01-2023","Performance");
-                Assessment assessment2 = new Assessment(0, "Assessment 2", "02-01-2023", "03-01-2023","Objective");
-                Assessment assessment3 = new Assessment(0, "Assessment 3", "03-01-2023", "04-01-2023","Performance");
+                Assessment assessment = new Assessment(0, "Assessment 1", "01-01-2023", "02-01-2023","Performance", 1);
+                Assessment assessment2 = new Assessment(0, "Assessment 2", "02-01-2023", "03-01-2023","Objective", 2);
+                Assessment assessment3 = new Assessment(0, "Assessment 3", "03-01-2023", "04-01-2023","Performance", 3);
                 repository.insert(assessment);
                 repository.insert(assessment2);
                 repository.insert(assessment3);

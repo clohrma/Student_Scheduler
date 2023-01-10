@@ -12,13 +12,15 @@ public class Assessment {
     private String assessmentName;
     private String assessmentStartDate;
     private String assessmentEndDate;
+    private int assessmentCourseID;
 
-    public Assessment(int assessmentID, String assessmentName, String assessmentStartDate, String assessmentEndDate, String assessmentType) {
+    public Assessment(int assessmentID, String assessmentName, String assessmentStartDate, String assessmentEndDate, String assessmentType, int assessmentCourseID) {
         this.assessmentID = assessmentID;
         this.assessmentName = assessmentName;
         this.assessmentStartDate = assessmentStartDate;
         this.assessmentEndDate = assessmentEndDate;
         this.assessmentType = assessmentType;
+        this.assessmentCourseID = assessmentCourseID;
     }
 
     public int getAssessmentID() {
@@ -41,6 +43,10 @@ public class Assessment {
         return assessmentType;
     }
 
+    public int getAssessmentCourseID() {
+        return assessmentCourseID;
+    }
+
     public void setAssessmentID(int assessmentID) {
         this.assessmentID = assessmentID;
     }
@@ -55,6 +61,10 @@ public class Assessment {
 
     public void setAssessmentEndDate(String assessmentEndDate) {
         this.assessmentEndDate = assessmentEndDate;
+    }
+
+    public void setAssessmentCourseID(int assessmentCourseID) {
+        this.assessmentCourseID = assessmentCourseID;
     }
 
     public void setAssessmentType(String assessmentType) {
