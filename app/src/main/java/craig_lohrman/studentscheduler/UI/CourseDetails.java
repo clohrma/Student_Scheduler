@@ -12,6 +12,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -21,10 +24,11 @@ import craig_lohrman.studentscheduler.entities.Course;
 
 public class CourseDetails extends AppCompatActivity {
 
-    EditText editCourseName, editCourseStart, editCourseEnd, editCourseTermID;
+    EditText editCourseName, editCourseStart, editCourseEnd;
     String name, startDate, endDate;
     int courseID, courseTermID;
     Course course, currentCourse;
+    RadioGroup radioGroup;
     Repository repository;
     Context mContext;
 
@@ -36,7 +40,15 @@ public class CourseDetails extends AppCompatActivity {
         editCourseName = findViewById(R.id.courseNameET);
         editCourseStart = findViewById(R.id.courseStartDateET);
         editCourseEnd = findViewById(R.id.courseEndDateET);
-        editCourseTermID = findViewById(R.id.courseTermIDET);
+        radioGroup = findViewById(R.id.courseStatusRBGroup);
+
+        radioGroup.clearCheck();
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButton = findViewById(checkedId);
+            }
+        });
 
         courseID = getIntent().getIntExtra("courseID", -1);
         name = getIntent().getStringExtra("courseName");
@@ -47,7 +59,6 @@ public class CourseDetails extends AppCompatActivity {
         editCourseName.setText(name);
         editCourseStart.setText(startDate);
         editCourseEnd.setText(endDate);
-        editCourseTermID.setText(courseTermID);
 
         RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
         repository = new Repository(getApplication());
@@ -59,11 +70,14 @@ public class CourseDetails extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(courseID != -1){
-                    course = new Course(0, editCourseName.getText().toString(), editCourseStart.getText().toString(), editCourseEnd.getText().toString(), editCourseTermID.getId());
+                int statusID = radioGroup.getCheckedRadioButtonId();
+                RadioButton radioButton = radioGroup.findViewById(statusID);
+
+                if (courseID != -1) {
+                    course = new Course(0, editCourseName.getText().toString(), editCourseStart.getText().toString(), editCourseEnd.getText().toString(), radioButton.getText().toString(), courseTermID);
                     repository.insert(course);
-                } else{
-                    course = new Course(0, editCourseName.getText().toString(), editCourseStart.getText().toString(), editCourseEnd.getText().toString(), editCourseTermID.getId());
+                } else {
+                    course = new Course(0, editCourseName.getText().toString(), editCourseStart.getText().toString(), editCourseEnd.getText().toString(), radioButton.getText().toString(), courseTermID);
                     repository.update(course);
                 }
             }
@@ -73,30 +87,16 @@ public class CourseDetails extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder delAlert = new AlertDialog.Builder(mContext);
-                delAlert.setTitle("Deleting " + course.getCourseName() + "?");
-                delAlert.setMessage("Are you sure you want to delete " + course.getCourseName() + "?");
-                delAlert.setIcon(android.R.drawable.ic_dialog_alert);
-                delAlert.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which){
-                        repository.delete(currentCourse);
-                    }
-                });
-                delAlert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-                AlertDialog dialog = delAlert.create();
-                dialog.show();
+                repository.delete(currentCourse);
+                Toast.makeText(CourseDetails.this, "Deleting " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
+
             }
         });
 
         FloatingActionButton fab = findViewById(R.id.courseDetailsFAB);
-        fab.setOnClickListener(new View.OnClickListener(){
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(CourseDetails.this, AssessmentDetails.class);
                 startActivity(intent);
             }

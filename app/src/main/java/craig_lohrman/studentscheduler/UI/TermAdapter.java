@@ -22,17 +22,17 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
         private TermViewHolder(View itemView) {
             super(itemView);
-            termItemView = itemView.findViewById(R.id.termListItemTextView);
+            termItemView = itemView.findViewById(R.id.termListItemTV);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    final Term current = mTerms.get(position);
-                    Intent intent=new Intent(context, TermDetails.class);
-                    intent.putExtra("termID",current.getTermID());
-                    intent.putExtra("termName", current.getTermName());
-                    intent.putExtra("termStartDate", current.getTermStartDate());
-                    intent.putExtra("termEndDate", current.getTermEndDate());
+                    final Term currentTerm = mTerms.get(position);
+                    Intent intent = new Intent(context, TermDetails.class);
+                    intent.putExtra("termID", currentTerm.getTermID());
+                    intent.putExtra("termName", currentTerm.getTermName());
+                    intent.putExtra("termStartDate", currentTerm.getTermStartDate());
+                    intent.putExtra("termEndDate", currentTerm.getTermEndDate());
                     context.startActivity(intent);
                 }
 
@@ -42,33 +42,32 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
 
     private List<Term> mTerms;
     private final Context context;
-    private final LayoutInflater mInflator;
+    private final LayoutInflater mInflater;
 
-    public TermAdapter(Context context){
-        mInflator=LayoutInflater.from(context);
-        this.context=context;
+    public TermAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        this.context = context;
     }
 
     @NonNull
     @Override
-    public TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView= mInflator.inflate(R.layout.term_list_item, parent, false);
+    public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = mInflater.inflate(R.layout.term_list_item, parent, false);
         return new TermViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
-        if(mTerms!=null){
-            Term current=mTerms.get(position);
-            String name= current.getTermName();
+    public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
+        if (mTerms != null) {
+            Term current = mTerms.get(position);
+            String name = current.getTermName();
             holder.termItemView.setText(name);
-        }
-        else{
+        } else {
             holder.termItemView.setText(R.string.no_terms_listed);
         }
     }
 
-    public void setTerms(List<Term> terms){
+    public void setTerms(List<Term> terms) {
         mTerms = terms;
         notifyDataSetChanged();
     }

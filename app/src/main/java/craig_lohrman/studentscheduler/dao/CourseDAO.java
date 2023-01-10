@@ -26,5 +26,5 @@ public interface CourseDAO {
     List<Course> getAllCourses();
 
     @Query("SELECT * FROM Course WHERE courseTermID= :courseTermID ORDER BY courseID ASC")
-    List<Course> getAllFilteredCourses(int courseTermID);
+    List<Course> getAllAssociatedCourses(int courseTermID);
 }

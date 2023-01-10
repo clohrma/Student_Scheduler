@@ -83,61 +83,13 @@ public class TermDetails extends AppCompatActivity {
                     }
                 }
 
-                /*
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setCancelable(true);
-                builder.setTitle("Title");
-                builder.setMessage("Message");
-                builder.setPositiveButton("Confirm",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
-                });
-
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
-
-                 */
                 numCourses = 0;
                 for (Course course : repository.getAllCourses()) {
                     if (course.getCourseTermID() == termID) {
-                        AlertDialog.Builder delAlert = new AlertDialog.Builder(mContext);
-                        delAlert.setTitle("Deleting " + term.getTermName() + "?");
-                        delAlert.setMessage("Are you sure you want to delete " + term.getTermName() + "?");
-                        delAlert.setIcon(android.R.drawable.ic_dialog_alert);
-                        delAlert.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which){
-                                repository.delete(currentTerm);
-                            }
-                        });
-                        delAlert.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = delAlert.create();
-                        dialog.show();
+                        Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Courses assigned to it.", Toast.LENGTH_LONG).show();
                     } else {
-                        //Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Courses assigned to it.", Toast.LENGTH_LONG).show();
-                        AlertDialog.Builder delAlert = new AlertDialog.Builder(mContext);
-                        delAlert.setTitle("Cannot Delete " + term.getTermName() + ".");
-                        delAlert.setMessage("Cannot delete " + currentTerm.getTermName() + " with Courses assigned to it.\nRemove the courses then delete the term.");
-                        delAlert.setIcon(android.R.drawable.ic_dialog_alert);
-                        delAlert.setNegativeButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        });
-                        AlertDialog dialog = delAlert.create();
-                        dialog.show();
+                        repository.delete(currentTerm);
+                        Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
                     }
                 }
             }
