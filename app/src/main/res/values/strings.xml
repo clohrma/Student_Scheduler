@@ -16,31 +16,45 @@
     <string name="save_term">Save</string>
     <string name="delete_term">Delete</string>
     <string name="course_name">Course Name</string>
-    <string name="course_start_date">Course Start Date</string>
-    <string name="course_end_date">Course End Date</string>
+    <string name="course_start_date">Course Start</string>
+    <string name="course_end_date">Course End</string>
     <string name="cannot_delete_term">Cannot delete this Term while there are course assigned to it.</string>
-    <string name="in_progress_RB">In Progress</string>
-    <string name="completed_RB">Completed</string>
-    <string name="dropped_RB">Dropped</string>
-    <string name="plain_to_take_RB">Plain To Take</string>
-    <string name="course_name_ex">Course Details Name</string>
+    <string name="course_name_ex">Course Name</string>
     <string name="course_start_date_ex">01/01/2023</string>
     <string name="course_end_date_ex">02/01/2023</string>
     <string name="course_term_name_ex">Term Name</string>
     <string name="assessment_name">Assessment Name</string>
-    <string name="assessment_start_date">Assessment Start Date</string>
-    <string name="assessment_end_date">Assessment End Date</string>
-    <string name="assessment_name_ex">Assessment Name</string>
+    <string name="assessment_start_date">Assessment Start</string>
+    <string name="assessment_end_date">Assessment End</string>
+    <string name="assessment_name_ex">Name</string>
     <string name="assessment_start_date_ex">01/01/2023</string>
     <string name="assessment_end_date_ex">02/01/2023</string>
-    <string name="performance_RB">Performance</string>
-    <string name="objective_RB">Objective</string>
     <string name="term_list_menu_item">Term Screen</string>
     <string name="course_list_menu_item">Course Screen</string>
     <string name="assessment_list_menu_item">Assessment Screen</string>
     <string name="no_terms_listed">No Terms Listed</string>
-    <string name="term_sample_text">Freshmen Fall Term</string>
+    <string name="term_sample_text">Freshmen Fall</string>
     <string name="term_start_date_sample">01/01/2022</string>
     <string name="term_end_date_sample">01/01/2022</string>
     <string name="no_course_list">No Courses Listed</string>
+    <string name="assessment_course_id">Assessment\'s Course ID</string>
+    <string name="assessment_course_id_ex">1</string>
+    <string name="no_assessment_listed">No Assessment Listed</string>
+    <string name="share_note">Edit Note</string>
+    <string name="notify_start">Notify Start</string>
+    <string name="notify_end">Notify End</string>
+    <string name="notes">Notes</string>
+
+    <string-array name="course_status_list">
+        <item>In Progress</item>
+        <item>Completed</item>
+        <item>Plan to Take</item>
+        <item>Dropped</item>
+    </string-array>
+
+    <string-array name="assessment_type_list">
+        <item>Performance</item>
+        <item>Objective</item>
+    </string-array>
+
 </resources>

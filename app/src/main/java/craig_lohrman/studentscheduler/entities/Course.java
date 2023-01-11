@@ -12,15 +12,17 @@ public class Course {
     private String courseName;
     private String courseStartDate;
     private String courseEndDate;
-    private String status;
+    private String courseStatus;
+    private String courseShareNote;
     private int courseTermID;
 
-    public Course(int courseID, String courseName, String courseStartDate, String courseEndDate, String status, int courseTermID) {
+    public Course(int courseID, String courseName, String courseStartDate, String courseEndDate, String courseStatus, String courseShareNote, int courseTermID) {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
-        this.status = status;
+        this.courseStatus = courseStatus;
+        this.courseShareNote = courseShareNote;
         this.courseTermID = courseTermID;
     }
 
@@ -40,8 +42,12 @@ public class Course {
         return courseEndDate;
     }
 
-    public String getStatus() {
-        return status;
+    public String getCourseStatus() {
+        return courseStatus;
+    }
+
+    public String getCourseShareNote() {
+        return courseShareNote;
     }
 
     public int getCourseTermID() {
@@ -64,8 +70,12 @@ public class Course {
         this.courseEndDate = courseEndDate;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCourseStatus(String status) {
+        this.courseStatus = status;
+    }
+
+    public void setCourseShareNote(String courseShareNote) {
+        this.courseShareNote = courseShareNote;
     }
 
     public void setCourseTermID(int courseTermID) {

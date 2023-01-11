@@ -14,7 +14,7 @@ import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.entities.Term;
-import craig_lohrman.studentscheduler.R;
+import craig_lohrman.studentscheduler.R.*;
 
 public class TermList extends AppCompatActivity {
 
@@ -23,17 +23,16 @@ public class TermList extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_term_list);
+        setContentView(layout.activity_term_list);
 
-        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
+        repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(id.termListRecyclerView);
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        repository = new Repository(getApplication());
         List<Term> allTerms = repository.getAllTerms();
 
-        FloatingActionButton fab = findViewById(R.id.termListFAB);
-        termAdapter.setTerms(allTerms);
+        FloatingActionButton fab = findViewById(id.termListFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,7 +46,7 @@ public class TermList extends AppCompatActivity {
     public void onResume() {
         super.onResume();
         List<Term> allTerms = repository.getAllTerms();
-        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
+        RecyclerView recyclerView = findViewById(id.termListRecyclerView);
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

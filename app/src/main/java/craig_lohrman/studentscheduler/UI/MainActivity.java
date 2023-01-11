@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button enter = findViewById(R.id.enterBtn);
         enter.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, TermList.class);
@@ -46,9 +47,9 @@ public class MainActivity extends AppCompatActivity {
                 repository.insert(term2);
                 repository.insert(term3);
 
-                Course course = new Course(0, "Course 1", "01-01-2023", "02-01-2023", "In Progress", 1);
-                Course course2 = new Course(0, "Course 2", "02-01-2023", "03-01-2023", "In Progress", 2);
-                Course course3 = new Course(0, "Course 3", "03-01-2023", "04-01-2023", "In Progress", 3);
+                Course course = new Course(0, "Course 1", "01-01-2023", "02-01-2023", "In Progress", "1",1);
+                Course course2 = new Course(0, "Course 2", "02-01-2023", "03-01-2023", "In Progress", "2",2);
+                Course course3 = new Course(0, "Course 3", "03-01-2023", "04-01-2023", "In Progress", "3",3);
                 repository.insert(course);
                 repository.insert(course2);
                 repository.insert(course3);

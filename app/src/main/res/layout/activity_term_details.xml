@@ -62,9 +62,10 @@
                     android:id="@+id/termStartDateET"
                     android:layout_width="200dp"
                     android:layout_height="48dp"
+                    android:focusable="false"
                     android:inputType="date"
-                    android:autofillHints="01/01/2023"
-                    android:hint="@string/term_start_date_sample" />
+                    android:autofillHints="Today's Date"
+                    android:hint="@string/term_start" />
 
             </LinearLayout>
 
@@ -86,9 +87,9 @@
                     android:id="@+id/termEndDateET"
                     android:layout_width="200dp"
                     android:layout_height="48dp"
-                    android:inputType="date"
-                    android:autofillHints="01/01/2023"
-                    android:hint="@string/term_end_date_sample" />
+                    android:hint="@string/term_end"
+                    android:autofillHints="Today's Date"
+                    android:focusable="false" />
 
             </LinearLayout>
 

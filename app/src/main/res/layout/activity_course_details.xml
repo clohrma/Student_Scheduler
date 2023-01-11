@@ -97,52 +97,42 @@
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <RadioGroup
-                android:id="@+id/courseStatusRBGroup"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:text= "@string/share_note"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/courseShareNoteET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:autofillHints="endDate"
+                    android:hint="@string/notes"
+                    android:inputType="date"
+                    android:textColorHint="#757575" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:paddingLeft="70dp"
-                    android:paddingRight="70dp" >
+                <Spinner
+                    android:id="@+id/courseStatusSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
 
-                    <RadioButton
-                        android:id="@+id/inProgressRB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-                        android:paddingEnd="60dp"
-                        android:paddingStart="0dp"
-                        android:text="@string/in_progress_RB" />
-
-                    <RadioButton
-                        android:id="@+id/completedRB"
-                        android:layout_width="135dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/completed_RB" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="wrap_content"
-                    android:paddingLeft="70dp"
-                    android:paddingRight="70dp" >
-
-                    <RadioButton
-                        android:id="@+id/droppedRB"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingEnd="80dp"
-                        android:paddingStart="0dp"
-                        android:text="@string/dropped_RB" />
-
-                    <RadioButton
-                        android:id="@+id/planToTakeRB"
-                        android:layout_width="135dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/plain_to_take_RB" />
-                </TableRow>
-            </RadioGroup>
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -164,6 +154,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/delete_term"
                     app:layout_constraintRight_toRightOf="parent" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
@@ -177,13 +168,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/courseDetailsFAB"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="@string/floating_add_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_36"
-        style="?android:attr/buttonBarButtonStyle"/>
+        app:srcCompat="@drawable/add_36" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

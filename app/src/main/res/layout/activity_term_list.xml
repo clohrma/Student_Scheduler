@@ -13,12 +13,12 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/termListFAB"
+        style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
         android:contentDescription="@string/floating_add_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_36"
-        style="?android:attr/buttonBarButtonStyle" />
+        app:srcCompat="@drawable/add_36" />
 </androidx.constraintlayout.widget.ConstraintLayout>
