@@ -25,7 +25,15 @@ public class TermList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
 
+        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
+        final TermAdapter termAdapter = new TermAdapter(this);
+        recyclerView.setAdapter(termAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        repository = new Repository(getApplication());
+        List<Term> allTerms = repository.getAllTerms();
+
         FloatingActionButton fab = findViewById(R.id.termListFAB);
+        termAdapter.setTerms(allTerms);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -33,14 +41,6 @@ public class TermList extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        repository = new Repository(getApplication());
-        List<Term> allTerms = repository.getAllTerms();
-        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
-        final TermAdapter termAdapter = new TermAdapter(this);
-        recyclerView.setAdapter(termAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        termAdapter.setTerms(allTerms);
     }
 
     @Override
