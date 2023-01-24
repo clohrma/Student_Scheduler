@@ -21,16 +21,12 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         private final TextView courseName;
         private final TextView courseStartDate;
         private final TextView courseEndDate;
-        private final TextView courseShareNote;
-        private final TextView courseStatus;
 
         private CourseViewHolder(View itemView) {
             super(itemView);
-            courseName = itemView.findViewById(id.courseNameET);
-            courseStartDate = itemView.findViewById(id.courseStartDateET);
-            courseEndDate = itemView.findViewById(id.courseEndDateET);
-            courseShareNote = itemView.findViewById(id.courseShareNote);
-            courseStatus = itemView.findViewById(id.courseStatusSpinner);
+            courseName = itemView.findViewById(id.courseNameListItemTV);
+            courseStartDate = itemView.findViewById(id.courseStartDateTV);
+            courseEndDate = itemView.findViewById(id.courseEndDateTV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -42,9 +38,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     intent.putExtra("courseName", current.getCourseName());
                     intent.putExtra("courseStartDate", current.getCourseStartDate());
                     intent.putExtra("courseEndDate", current.getCourseEndDate());
-                    intent.putExtra("courseStatus", current.getCourseStatus());
+                    intent.putExtra("courseInstructorName", current.getCourseInstructorName());
                     intent.putExtra("courseShareNote", current.getCourseShareNote());
-                    intent.putExtra("courseTermID", current.getCourseTermID());
+                    intent.putExtra("courseStatus", current.getCourseStatus());
                     context.startActivity(intent);
                 }
             });
@@ -74,15 +70,10 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             String cName = current.getCourseName();
             String cStartDate = current.getCourseStartDate();
             String cEndDate = current.getCourseEndDate();
-            String cStatus = current.getCourseStatus();
-            String cShareNote = current.getCourseShareNote();
-            int termID = current.getCourseTermID();
 
             holder.courseName.setText(cName);
             holder.courseStartDate.setText(cStartDate);
             holder.courseEndDate.setText(cEndDate);
-            holder.courseStatus.setText(cStatus);
-            holder.courseShareNote.setText(cShareNote);
         } else {
             holder.courseName.setText(string.no_course_list);
         }

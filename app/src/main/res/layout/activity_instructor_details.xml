@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.TermDetails">
+    tools:context=".UI.InstructorDetails">
 
     <ScrollView
-        android:id="@+id/termDetails_SV"
+        android:id="@+id/instructorDetails_SV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -17,10 +17,12 @@
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -31,66 +33,14 @@
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
                     android:paddingEnd="10dp"
-                    android:text="@string/term_name" />
+                    android:text="@string/instructor_name" />
 
                 <EditText
-                    android:id="@+id/termNameET"
+                    android:id="@+id/instructorNameET"
                     android:layout_width="200dp"
                     android:layout_height="48dp"
-                    android:autofillHints="name"
-                    android:hint="@string/term_sample_text"
-                    android:inputType="text" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/term_start" />
-
-                <EditText
-                    android:id="@+id/termStartDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:autofillHints="Today's Date"
-                    android:focusable="false"
-                    android:hint="@string/term_start"
-                    android:inputType="date" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/term_end" />
-
-                <EditText
-                    android:id="@+id/termEndDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="48dp"
-                    android:autofillHints="Today's Date"
-                    android:focusable="false"
-                    android:hint="@string/term_end"
-                    android:inputType="date" />
-
+                    android:hint="@string/john_doe"
+                    android:inputType="textPersonName" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -98,15 +48,60 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/instructor_phone" />
+
+                <EditText
+                    android:id="@+id/instructorPhoneET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:hint="@string/instructor_phone_ex"
+                    android:inputType="phone" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:layout_margin="2dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="@string/instructor_email" />
+
+                <EditText
+                    android:id="@+id/instructorEmailET"
+                    android:layout_width="200dp"
+                    android:layout_height="48dp"
+                    android:hint="@string/instructor_email_ex"
+                    android:inputType="textEmailAddress" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/buttonBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <Button
-                    android:id="@+id/saveTerm"
+                    android:id="@+id/saveInstructor"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:text="@string/save_term" />
 
                 <Button
-                    android:id="@+id/deleteTerm"
+                    android:id="@+id/deleteInstructor"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
@@ -116,23 +111,12 @@
     </ScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/courseDetailsRecycler"
+        android:id="@+id/instructorListRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termDetails_SV" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/termDetailsFAB"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/floating_add_desc"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_36" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instructorDetails_SV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

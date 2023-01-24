@@ -11,15 +11,15 @@ public class Instructor {
     private String instructorName;
     private String instructorPhone;
     private String instructorEmail;
+    private int instructorCourseID;
 
-    public Instructor(int instructorID, String instructorName, String instructorPhone, String instructorEmail) {
+    public Instructor(int instructorID, String instructorName, String instructorPhone, String instructorEmail, int instructorCourseID) {
         this.instructorID = instructorID;
         this.instructorName = instructorName;
         this.instructorPhone = instructorPhone;
         this.instructorEmail = instructorEmail;
+        this.instructorCourseID = instructorCourseID;
     }
-
-    public Instructor(String instructorName) { }
 
     public int getInstructorID() {
         return instructorID;
@@ -37,6 +37,10 @@ public class Instructor {
         return instructorEmail;
     }
 
+    public int getInstructorCourseID() {
+        return instructorCourseID;
+    }
+
     public void setInstructorID(int instructorID) {
         this.instructorID = instructorID;
     }
@@ -51,5 +55,9 @@ public class Instructor {
 
     public void setInstructorEmail(String instructorEmail) {
         this.instructorEmail = instructorEmail;
+    }
+
+    public void setInstructorCourseID(int instructorCourseID) {
+        this.instructorCourseID = instructorCourseID;
     }
 }

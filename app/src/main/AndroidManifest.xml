@@ -12,6 +12,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentScheduler"
         tools:targetApi="31">
+        <activity
+            android:name=".UI.InstructorDetails"
+            android:exported="false"
+            android:label="@string/instructor_title"
+            android:parentActivityName=".UI.CourseDetails">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
 
         <receiver
             android:name=".UI.MyReceiver"

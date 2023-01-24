@@ -21,16 +21,12 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
         private final TextView assessmentName;
         private final TextView assessmentStartDate;
         private final TextView assessmentEndDate;
-        private final TextView assessmentType;
-        private final TextView assessmentCourseID;
 
         private AssessmentViewHolder(View itemView) {
             super(itemView);
-            assessmentName = itemView.findViewById(R.id.assessmentNameET);
-            assessmentStartDate = itemView.findViewById(R.id.assessmentStartDateET);
-            assessmentEndDate = itemView.findViewById(R.id.assessmentEndDateET);
-            assessmentType = itemView.findViewById(R.id.assessmentTypeSpinner);
-            assessmentCourseID = itemView.findViewById(R.id.assessmentCourseIDET);
+            assessmentName = itemView.findViewById(R.id.assessmentNameTV);
+            assessmentStartDate = itemView.findViewById(R.id.assessmentStartDateTV);
+            assessmentEndDate = itemView.findViewById(R.id.assessmentEndDateTV);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -43,7 +39,6 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
                     intent.putExtra("assessmentStartDate", currentAssessment.getAssessmentStartDate());
                     intent.putExtra("assessmentEndDate", currentAssessment.getAssessmentEndDate());
                     intent.putExtra("assessmentType", currentAssessment.getAssessmentType());
-                    intent.putExtra("assessmentCourseID", currentAssessment.getAssessmentCourseID());
                     context.startActivity(intent);
                 }
             });
@@ -73,16 +68,11 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.As
             String name = currentAssessment.getAssessmentName();
             String startDate = currentAssessment.getAssessmentStartDate();
             String endDate = currentAssessment.getAssessmentEndDate();
-            String aType = currentAssessment.getAssessmentType();
-            int courseID = currentAssessment.getAssessmentCourseID();
 
             holder.assessmentName.setText(name);
             holder.assessmentStartDate.setText(startDate);
             holder.assessmentEndDate.setText(endDate);
-            holder.assessmentType.setText(aType);
-            holder.assessmentCourseID.setText(courseID);
-        }
-        else {
+        } else {
             holder.assessmentName.setText(R.string.no_assessment_listed);
         }
     }

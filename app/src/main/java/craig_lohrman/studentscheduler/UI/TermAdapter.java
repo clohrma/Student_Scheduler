@@ -16,7 +16,6 @@ import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Term;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
-
     class TermViewHolder extends RecyclerView.ViewHolder {
         private final TextView termItemView;
 
@@ -53,14 +52,15 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     @Override
     public TermAdapter.TermViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.term_list_item, parent, false);
-        return new TermViewHolder((itemView));
+        return new TermViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermAdapter.TermViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
         if (mTerms != null) {
             Term current = mTerms.get(position);
             String name = current.getTermName();
+
             holder.termItemView.setText(name);
         } else {
             holder.termItemView.setText(R.string.no_terms_listed);

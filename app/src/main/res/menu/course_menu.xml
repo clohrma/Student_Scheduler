@@ -9,11 +9,4 @@
 
     <item android:title="@string/notify_end"
         android:id="@+id/courseNotifyEnd"/>
-
-    <item android:title="@string/term_list_menu_item"
-        android:id="@+id/courseTermScreenItem"/>
-
-    <item android:title="@string/assessment_list_menu_item"
-        android:id="@+id/courseAssessmentScreenItem"/>
-
 </menu>

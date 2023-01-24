@@ -13,6 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
+import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Term;
 import craig_lohrman.studentscheduler.R.*;
 
@@ -25,14 +26,15 @@ public class TermList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(layout.activity_term_list);
 
-        repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(id.termListRecyclerView);
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        repository = new Repository(getApplication());
         List<Term> allTerms = repository.getAllTerms();
 
         FloatingActionButton fab = findViewById(id.termListFAB);
+        termAdapter.setTerms(allTerms);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

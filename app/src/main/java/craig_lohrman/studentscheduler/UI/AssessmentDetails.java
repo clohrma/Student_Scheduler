@@ -28,12 +28,11 @@ import craig_lohrman.studentscheduler.entities.Assessment;
 public class AssessmentDetails extends AppCompatActivity {
 
     EditText editAssessmentName, editAssessmentStartDate, editAssessmentEndDate;
-    String aName, aStartDate, aEndDate;
-    Spinner aType;
+    String aName, aStartDate, aEndDate, aType;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
-    int assessmentID, assessmentCourseID;
+    int assessmentID, assessmentCourseID, aTypeINT;
     Assessment assessment;
     Repository repository;
 
@@ -48,6 +47,7 @@ public class AssessmentDetails extends AppCompatActivity {
 
         String dateFormat = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateFormat, Locale.US);
+
         editAssessmentStartDate.setText(dateSDF.format(new Date()));
         editAssessmentEndDate.setText(dateSDF.format(new Date()));
 
@@ -56,6 +56,7 @@ public class AssessmentDetails extends AppCompatActivity {
         aStartDate = getIntent().getStringExtra("assessmentStartDate");
         aEndDate = getIntent().getStringExtra("assessmentEndDate");
         assessmentCourseID = getIntent().getIntExtra("assessmentCourseID", -1);
+        aTypeINT = getIntent().getIntExtra("assessmentType", -1);
 
         editAssessmentName.setText(aName);
         editAssessmentStartDate.setText(aStartDate);
@@ -64,16 +65,18 @@ public class AssessmentDetails extends AppCompatActivity {
 
         repository = new Repository(getApplication());
         Spinner aSpinner = findViewById(R.id.assessmentTypeSpinner);
-        ArrayAdapter<CharSequence> assessmentArrayAdapter = ArrayAdapter.createFromResource(this, R.array.assessment_type_list, android.R.layout.simple_spinner_dropdown_item);
+        ArrayAdapter<CharSequence> assessmentArrayAdapter = ArrayAdapter.createFromResource(this, R.array.assessment_type_list, android.R.layout.simple_spinner_item);
+        assessmentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         aSpinner.setAdapter(assessmentArrayAdapter);
         aSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-                aType.getItemAtPosition(pos);
+                aType = aSpinner.getSelectedItem().toString();
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) { }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
         });
 
         Button saveButton = findViewById(R.id.saveAssessment);
@@ -82,18 +85,18 @@ public class AssessmentDetails extends AppCompatActivity {
             public void onClick(View v) {
                 if (assessmentID == -1) {
                     assessment = new Assessment(0, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
-                            editAssessmentEndDate.getText().toString(), aType.toString(), assessmentCourseID);
+                            editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.insert(assessment);
                     Toast.makeText(AssessmentDetails.this, aName + " was added to Assessments", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                    //startActivity(intent);
                 } else {
                     assessment = new Assessment(assessmentID, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
-                            editAssessmentEndDate.getText().toString(), aType.toString(), assessmentCourseID);
+                            editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.update(assessment);
                     Toast.makeText(AssessmentDetails.this, aName + " was updated in Assessments", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                    startActivity(intent);
+                    //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -104,8 +107,8 @@ public class AssessmentDetails extends AppCompatActivity {
             public void onClick(View v) {
                 repository.delete(assessment);
                 Toast.makeText(AssessmentDetails.this, assessment.getAssessmentName() + " was deleted", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                startActivity(intent);
+                //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
+                //startActivity(intent);
             }
         });
 
@@ -151,7 +154,7 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         });
 
-         endDateDP = new DatePickerDialog.OnDateSetListener() {
+        endDateDP = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 myCalEnd.set(Calendar.YEAR, year);
@@ -162,6 +165,7 @@ public class AssessmentDetails extends AppCompatActivity {
             }
         };
     }
+
     private void updateDateET() {
         String dateFormat = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateFormat, Locale.US);
