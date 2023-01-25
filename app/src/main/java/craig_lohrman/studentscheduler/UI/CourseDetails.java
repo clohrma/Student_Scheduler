@@ -32,7 +32,6 @@ import java.util.List;
 import java.util.Locale;
 
 import craig_lohrman.studentscheduler.Database.Repository;
-import craig_lohrman.studentscheduler.R.*;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
 import craig_lohrman.studentscheduler.entities.Course;
@@ -52,13 +51,12 @@ public class CourseDetails extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_course_details);
+        setContentView(R.layout.activity_course_details);
 
-        editCourseName = findViewById(id.courseNameET);
-        editCourseStartDate = findViewById(id.courseStartDateET);
-        editCourseEndDate = findViewById(id.courseEndDateET);
-        editShareNote = findViewById(id.courseShareNoteET);
-        editInstructorName = findViewById(id.courseInstructorNameET);
+        editCourseName = findViewById(R.id.courseNameET);
+        editCourseStartDate = findViewById(R.id.courseStartDateET);
+        editCourseEndDate = findViewById(R.id.courseEndDateET);
+        editShareNote = findViewById(R.id.courseShareNoteET);
 
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
@@ -82,7 +80,7 @@ public class CourseDetails extends AppCompatActivity {
         editInstructorName.setText(cInstructorName);
 
         repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(id.assessmentListRecycler);
+        RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
         repository = new Repository(getApplication());
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
@@ -96,14 +94,28 @@ public class CourseDetails extends AppCompatActivity {
         }
         assessmentAdapter.setAssessment(filteredAssessments);
 
-        Spinner spinner = findViewById(id.courseStatusSpinner);
-        ArrayAdapter<CharSequence> courseArrayAdapter = ArrayAdapter.createFromResource(this, array.course_status_list, android.R.layout.simple_spinner_item);
+        Spinner cISpinner = findViewById(R.id.courseInstructorNameSpinner);
+        ArrayAdapter<Instructor> courseInsName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.getAllInstructors());
+        cISpinner.setAdapter(courseInsName);
+        cISpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                editInstructorName.setText(courseInsName.getItem(position).toString());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+        Spinner spinner = findViewById(R.id.courseStatusSpinner);
+        ArrayAdapter<CharSequence> courseArrayAdapter = ArrayAdapter.createFromResource(this, R.array.course_status_list, android.R.layout.simple_spinner_item);
         courseArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(courseArrayAdapter);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                spinner.setSelection(i);
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spinner.setSelection(position);
             }
 
             @Override
@@ -111,22 +123,7 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        Spinner iSpinner = findViewById(id.courseStatusSpinner);
-        ArrayAdapter<CharSequence> instructorArrayAdapter = ArrayAdapter.createFromResource(this, array.course_status_list, android.R.layout.simple_spinner_item);
-        instructorArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
-        iSpinner.setAdapter(instructorArrayAdapter);
-        iSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                iSpinner.setSelection(i);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        Button saveCourse = findViewById(id.saveCourse);
+        Button saveCourse = findViewById(R.id.saveCourse);
         saveCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -205,7 +202,7 @@ public class CourseDetails extends AppCompatActivity {
             }
         };
 
-        Button deleteCourse = findViewById(id.deleteCourse);
+        Button deleteCourse = findViewById(R.id.deleteCourse);
         deleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,7 +211,7 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton fab = findViewById(id.courseDetailsFAB);
+        FloatingActionButton fab = findViewById(R.id.courseDetailsFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -223,7 +220,7 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton iSave = findViewById(id.courseInstructorAdd);
+        FloatingActionButton iSave = findViewById(R.id.courseInstructorAdd);
         iSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -261,7 +258,7 @@ public class CourseDetails extends AppCompatActivity {
                 this.finish();
                 return true;
 
-            case id.courseShareNote:
+            case R.id.courseShareNote:
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, editShareNote.getText().toString());
@@ -271,7 +268,7 @@ public class CourseDetails extends AppCompatActivity {
                 startActivity(shareNote);
                 return true;
 
-            case id.courseNotifyStart:
+            case R.id.courseNotifyStart:
                 String courseStartDate = editCourseStartDate.getText().toString();
                 Date date = null;
 
@@ -289,7 +286,7 @@ public class CourseDetails extends AppCompatActivity {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderStart);
                 return true;
 
-            case id.courseNotifyEnd:
+            case R.id.courseNotifyEnd:
                 String courseEndDate = editCourseEndDate.getText().toString();
                 date = null;
                 alarmManager = null;
@@ -315,7 +312,7 @@ public class CourseDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         List<Assessment> allAssessment = repository.getAllAssessments();
-        RecyclerView recyclerView = findViewById(id.assessmentListRecycler);
+        RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

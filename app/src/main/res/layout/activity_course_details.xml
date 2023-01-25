@@ -90,7 +90,8 @@
                     android:layout_height="48dp"
                     android:autofillHints="Today's Date"
                     android:focusable="false"
-                    android:hint="@string/course_end_date_ex" />
+                    android:hint="@string/course_end_date_ex"
+                    android:inputType="date" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
