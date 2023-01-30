@@ -114,8 +114,7 @@
                     android:id="@+id/courseInstructorNameSpinner"
                     android:layout_width="150dp"
                     android:layout_height="48dp"
-                    android:autofillHints="Instructor's Name"
-                    android:hint="@string/john_doe"/>
+                    android:autofillHints="Instructor's Name" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/courseInstructorAdd"

@@ -27,10 +27,10 @@ public class TermList extends AppCompatActivity {
         setContentView(layout.activity_term_list);
 
         RecyclerView recyclerView = findViewById(id.termListRecyclerView);
+        repository = new Repository(getApplication());
         final TermAdapter termAdapter = new TermAdapter(this);
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        repository = new Repository(getApplication());
         List<Term> allTerms = repository.getAllTerms();
 
         FloatingActionButton fab = findViewById(id.termListFAB);

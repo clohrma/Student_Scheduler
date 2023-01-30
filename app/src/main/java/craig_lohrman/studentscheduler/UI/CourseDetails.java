@@ -36,6 +36,7 @@ import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
 import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Instructor;
+import craig_lohrman.studentscheduler.entities.Term;
 
 public class CourseDetails extends AppCompatActivity {
 
@@ -70,16 +71,15 @@ public class CourseDetails extends AppCompatActivity {
         cEndDateString = getIntent().getStringExtra("courseEndDate");
         cStatusString = getIntent().getStringExtra("courseStatus");
         cShareNoteString = getIntent().getStringExtra("courseShareNote");
-        cInstructorName = getIntent().getStringExtra("instructorName");
+        cInstructorName = getIntent().getStringExtra("courseInstructorName");
         courseTermID = getIntent().getIntExtra("courseTermID", -1);
 
         editCourseName.setText(cNameString);
         editCourseStartDate.setText(cStartDateString);
         editCourseEndDate.setText(cEndDateString);
         editShareNote.setText(cShareNoteString);
-        editInstructorName.setText(cInstructorName);
 
-        repository = new Repository(getApplication());
+
         RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
         repository = new Repository(getApplication());
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
@@ -95,16 +95,22 @@ public class CourseDetails extends AppCompatActivity {
         assessmentAdapter.setAssessment(filteredAssessments);
 
         Spinner cISpinner = findViewById(R.id.courseInstructorNameSpinner);
-        ArrayAdapter<Instructor> courseInsName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.getAllInstructors());
+        ArrayAdapter<Instructor> courseInsName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.filteredInstructors(courseID));
+        courseInsName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cISpinner.setAdapter(courseInsName);
         cISpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                editInstructorName.setText(courseInsName.getItem(position).toString());
+                for(Instructor a : repository.getAllInstructors()){
+                    if(a.getInstructorName() == cInstructorName){
+                        cISpinner.setSelection(position);
+                    }
+                }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                editInstructorName.setSelection(0);
             }
         });
 
@@ -168,6 +174,8 @@ public class CourseDetails extends AppCompatActivity {
                 myCalStart.set(Calendar.YEAR, year);
                 myCalStart.set(Calendar.MONTH, month);
                 myCalStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String dateSTR = "MM/dd/yyyy";
+                SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
                 refreshStartDate();
             }
@@ -220,8 +228,8 @@ public class CourseDetails extends AppCompatActivity {
             }
         });
 
-        FloatingActionButton iSave = findViewById(R.id.courseInstructorAdd);
-        iSave.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton iAdd = findViewById(R.id.courseInstructorAdd);
+        iAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CourseDetails.this, InstructorDetails.class);
@@ -249,61 +257,62 @@ public class CourseDetails extends AppCompatActivity {
         return true;
     }
 
-    public boolean onOptionsItemsSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                this.finish();
-                return true;
+        if(item.getItemId() == android.R.id.home) {
+            this.finish();
+            return true;
+        }
 
-            case R.id.courseShareNote:
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, editShareNote.getText().toString());
-                sendIntent.putExtra(Intent.EXTRA_TITLE, "Note Sharing");
-                sendIntent.setType("text/plain");
-                Intent shareNote = Intent.createChooser(sendIntent, null);
-                startActivity(shareNote);
-                return true;
+        if(item.getItemId() == R.id.courseShareNote) {
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, editShareNote.getText().toString());
+            sendIntent.putExtra(Intent.EXTRA_TITLE, "Note Sharing");
+            sendIntent.setType("text/plain");
+            Intent shareNote = Intent.createChooser(sendIntent, null);
+            startActivity(shareNote);
+            return true;
+        }
 
-            case R.id.courseNotifyStart:
-                String courseStartDate = editCourseStartDate.getText().toString();
-                Date date = null;
+        if(item.getItemId() == R.id.courseNotifyStart) {
+            String courseStartDate = editCourseStartDate.getText().toString();
+            Date date = null;
 
-                try {
-                    date = dateSDF.parse(courseStartDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            try {
+                date = dateSDF.parse(courseStartDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-                Long trigger = date.getTime();
-                Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
-                intent.putExtra("key", courseStartDate + " is set.");
-                PendingIntent senderStart = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderStart);
-                return true;
+            Long trigger = date.getTime();
+            Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
+            intent.putExtra("key", courseStartDate + " is set.");
+            PendingIntent senderStart = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderStart);
+            return true;
+        }
 
-            case R.id.courseNotifyEnd:
-                String courseEndDate = editCourseEndDate.getText().toString();
-                date = null;
-                alarmManager = null;
+        if(item.getItemId() == R.id.courseNotifyEnd) {
+            String courseEndDate = editCourseEndDate.getText().toString();
+            Date date = null;
 
-                try {
-                    date = dateSDF.parse(courseEndDate);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
+            try {
+                date = dateSDF.parse(courseEndDate);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-                trigger = date.getTime();
-                intent = new Intent(CourseDetails.this, MyReceiver.class);
-                intent.putExtra("key", courseEndDate + " is removed.");
-                PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
-                alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-                alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);
-                return true;
+            Long trigger = date.getTime();
+            Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
+            intent.putExtra("key", courseEndDate + " is removed.");
+            PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -20,7 +20,7 @@ public class Repository {
     private AssessmentDAO mAssessmentDAO;
     private CourseDAO mCourseDAO;
     private TermDAO mTermDAO;
-    private InstructorDAO mInstructorDAO;
+    private InstructorDAO mInstructorDAO, filteredInstructors;
     private List<Term> mAllTerms;
     private List<Course> mAllCourses;
     private List<Assessment> mAllAssessments;
@@ -180,6 +180,19 @@ public class Repository {
     public List<Instructor> getAllInstructors() {
         databaseExecutor.execute(() -> {
             mAllInstructors = mInstructorDAO.getAllInstructors();
+        });
+
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return mAllInstructors;
+    }
+
+    public List<Instructor> filteredInstructors(int instructorCourseID) {
+        databaseExecutor.execute(() -> {
+            filteredInstructors = (InstructorDAO) mInstructorDAO.filteredInstructors(instructorCourseID);
         });
 
         try {
