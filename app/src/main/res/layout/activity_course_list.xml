@@ -7,7 +7,7 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/termListFAB"
+        android:id="@+id/courseListFAB"
         style="?android:attr/buttonBarButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,10 +21,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/termListFAB" >
+        app:layout_constraintBottom_toTopOf="@+id/courseListFAB" >
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/termListRecyclerView"
+            android:id="@+id/courseListRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </ScrollView>

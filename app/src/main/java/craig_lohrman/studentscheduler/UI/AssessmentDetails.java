@@ -13,17 +13,21 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
+import craig_lohrman.studentscheduler.entities.Instructor;
 
 public class AssessmentDetails extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class AssessmentDetails extends AppCompatActivity {
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
     int assessmentID, assessmentCourseID, aTypeINT;
+    String[] type = {"Performance", "Objective"};
     Assessment assessment;
     Repository repository;
 
@@ -63,9 +68,8 @@ public class AssessmentDetails extends AppCompatActivity {
         editAssessmentEndDate.setText(aStartDate);
         editAssessmentEndDate.setText(aEndDate);
 
-        repository = new Repository(getApplication());
         Spinner aSpinner = findViewById(R.id.assessmentTypeSpinner);
-        ArrayAdapter<CharSequence> assessmentArrayAdapter = ArrayAdapter.createFromResource(this, R.array.assessment_type_list, android.R.layout.simple_spinner_item);
+        ArrayAdapter assessmentArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, type);
         assessmentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         aSpinner.setAdapter(assessmentArrayAdapter);
         aSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

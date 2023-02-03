@@ -85,12 +85,12 @@ public class TermDetails extends AppCompatActivity {
                 if (termID == -1) {
                     term = new Term(0, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.insert(term);
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    Intent intent = new Intent(TermDetails.this, MainActivity.class);
                     startActivity(intent);
                 } else {
                     term = new Term(0, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.update(term);
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    Intent intent = new Intent(TermDetails.this, MainActivity.class);
                     startActivity(intent);
                 }
             }
@@ -175,16 +175,8 @@ public class TermDetails extends AppCompatActivity {
                 }
             }
         });
-
-        FloatingActionButton fab = findViewById(R.id.termDetailsFAB);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(TermDetails.this, CourseDetails.class);
-                startActivity(intent);
-            }
-        });
     }
+
     private void refreshStartDate(){
         String dateSTR = "MM/dd/yy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);

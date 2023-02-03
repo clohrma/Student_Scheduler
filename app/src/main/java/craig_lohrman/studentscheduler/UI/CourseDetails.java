@@ -80,7 +80,7 @@ public class CourseDetails extends AppCompatActivity {
         editShareNote.setText(cShareNoteString);
 
 
-        RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
+        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
         repository = new Repository(getApplication());
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
@@ -94,23 +94,24 @@ public class CourseDetails extends AppCompatActivity {
         }
         assessmentAdapter.setAssessment(filteredAssessments);
 
-        Spinner cISpinner = findViewById(R.id.courseInstructorNameSpinner);
-        ArrayAdapter<Instructor> courseInsName = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.filteredInstructors(courseID));
-        courseInsName.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        cISpinner.setAdapter(courseInsName);
-        cISpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        Spinner cInstructorSpinner = findViewById(R.id.courseInstructorNameSpinner);
+        ArrayAdapter<Instructor> cInstructorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.getAllInstructors());
+        cInstructorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        cInstructorSpinner.setAdapter(cInstructorAdapter);
+
+        cInstructorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                for(Instructor a : repository.getAllInstructors()){
-                    if(a.getInstructorName() == cInstructorName){
-                        cISpinner.setSelection(position);
+                for(int i = 0; i < cInstructorSpinner.getCount(); i++){
+                    if(cInstructorSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(cInstructorName)){
+                        cInstructorSpinner.getItemAtPosition(i);
                     }
                 }
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                editInstructorName.setSelection(0);
+
             }
         });
 
@@ -133,7 +134,6 @@ public class CourseDetails extends AppCompatActivity {
         saveCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (courseID != -1) {
                     course = new Course(0, editCourseName.getText().toString(), editCourseStartDate.getText().toString(), editCourseEndDate.getText().toString(),
                             cStatusString, cShareNoteString, cInstructorName, courseTermID);
@@ -147,6 +147,15 @@ public class CourseDetails extends AppCompatActivity {
                     Intent intent = new Intent(CourseDetails.this, TermDetails.class);
                     startActivity(intent);
                 }
+            }
+        });
+
+        Button deleteCourse = findViewById(R.id.deleteCourse);
+        deleteCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repository.delete(currentCourse);
+                Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -209,33 +218,6 @@ public class CourseDetails extends AppCompatActivity {
                 refreshEndDate();
             }
         };
-
-        Button deleteCourse = findViewById(R.id.deleteCourse);
-        deleteCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                repository.delete(currentCourse);
-                Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
-            }
-        });
-
-        FloatingActionButton fab = findViewById(R.id.courseDetailsFAB);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseDetails.this, AssessmentDetails.class);
-                startActivity(intent);
-            }
-        });
-
-        FloatingActionButton iAdd = findViewById(R.id.courseInstructorAdd);
-        iAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseDetails.this, InstructorDetails.class);
-                startActivity(intent);
-            }
-        });
     }
 
     private void refreshStartDate() {
@@ -321,7 +303,7 @@ public class CourseDetails extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         List<Assessment> allAssessment = repository.getAllAssessments();
-        RecyclerView recyclerView = findViewById(R.id.assessmentListRecycler);
+        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

@@ -50,6 +50,7 @@ public class InstructorDetails extends AppCompatActivity {
         recyclerView.setAdapter(instructorAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Instructor> allInstructors = repository.getAllInstructors();
+        instructorAdapter.setInstructors(allInstructors);
 
         Button saveInstructor = findViewById(R.id.saveInstructor);
         saveInstructor.setOnClickListener(new View.OnClickListener() {

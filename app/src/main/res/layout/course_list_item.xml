@@ -8,39 +8,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@color/course_item_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/courseNameListItemTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/course_name"
-            android:textSize="16sp"
+            android:textSize="18sp"
             tools:layout_editor_absoluteX="4dp"
             tools:layout_editor_absoluteY="21dp" />
 
         <TextView
             android:id="@+id/courseStartDateTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/course_start_date_ex"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/assessmentNameTV"
             tools:layout_editor_absoluteY="21dp" />
 
         <TextView
             android:id="@+id/courseEndDateTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/course_end_date_ex"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"
             tools:layout_editor_absoluteY="21dp" />
 

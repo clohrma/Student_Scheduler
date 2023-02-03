@@ -13,32 +13,32 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
+import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Term;
-import craig_lohrman.studentscheduler.R.*;
 
-public class TermList extends AppCompatActivity {
+public class CourseList extends AppCompatActivity {
 
     private Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_term_list);
+        setContentView(R.layout.activity_course_list);
 
-        RecyclerView recyclerView = findViewById(id.termListRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.courseListRecyclerView);
         repository = new Repository(getApplication());
-        final TermAdapter termAdapter = new TermAdapter(this);
-        recyclerView.setAdapter(termAdapter);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Term> allTerms = repository.getAllTerms();
-        termAdapter.setTerms(allTerms);
+        List<Course> allCourses = repository.getAllCourses();
+        courseAdapter.setCourses(allCourses);
 
-        FloatingActionButton fab = findViewById(id.termListFAB);
+        FloatingActionButton fab = findViewById(R.id.courseListFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(TermList.this, TermDetails.class);
+                Intent intent = new Intent(CourseList.this, CourseDetails.class);
                 startActivity(intent);
             }
         });
@@ -47,11 +47,11 @@ public class TermList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-        List<Term> allTerms = repository.getAllTerms();
-        RecyclerView recyclerView = findViewById(id.termListRecyclerView);
-        final TermAdapter termAdapter = new TermAdapter(this);
-        recyclerView.setAdapter(termAdapter);
+        List<Course> allCourses = repository.getAllCourses();
+        RecyclerView recyclerView = findViewById(R.id.courseListRecyclerView);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        termAdapter.setTerms(allTerms);
+        courseAdapter.setCourses(allCourses);
     }
 }

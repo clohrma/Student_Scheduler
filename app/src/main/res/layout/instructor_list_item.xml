@@ -8,38 +8,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        tools:layout_editor_absoluteX="5dp"
-        tools:layout_editor_absoluteY="5dp">
+        android:padding="5dp"
+        android:layout_margin="5dp"
+        android:background="@color/instructor_item_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/instructorNameTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/instructor_name"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"
             tools:layout_editor_absoluteY="21dp" />
 
         <TextView
             android:id="@+id/instructorPhoneTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/instructor_phone_ex"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"
             tools:layout_editor_absoluteY="21dp" />
 
         <TextView
             android:id="@+id/instructorEmailTV"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@string/instructor_email_ex"
-            android:textSize="16sp"
+            android:textSize="18sp"
             app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"
             tools:layout_editor_absoluteY="21dp" />
     </LinearLayout>

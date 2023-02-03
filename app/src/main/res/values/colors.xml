@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="term_item_background">#bca820</color>
+    <color name="course_item_background">#6eb01e</color>
+    <color name="instructor_item_background">#4196b6</color>
+    <color name="assessment_item_background">#d72142</color>
 </resources>

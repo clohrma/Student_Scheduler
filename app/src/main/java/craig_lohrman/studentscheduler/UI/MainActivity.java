@@ -24,9 +24,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button enter = findViewById(R.id.enterBtn);
-        enter.setOnClickListener(view -> {
+        Button termListBtn = findViewById(R.id.termListBtn);
+        termListBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, TermList.class);
+            startActivity(intent);
+        });
+
+        Button courseListBtn = findViewById(R.id.courseListBtn);
+        courseListBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, CourseList.class);
+            startActivity(intent);
+        });
+
+        Button AssessmentListBtn = findViewById(R.id.assessmentListBtn);
+        AssessmentListBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AssessmentList.class);
             startActivity(intent);
         });
     }

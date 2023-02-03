@@ -26,7 +26,7 @@
 
                 <TextView
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
@@ -36,7 +36,7 @@
                 <EditText
                     android:id="@+id/termNameET"
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints="name"
                     android:hint="@string/term_sample_text"
                     android:inputType="text" />
@@ -50,7 +50,7 @@
 
                 <TextView
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
@@ -60,7 +60,7 @@
                 <EditText
                     android:id="@+id/termStartDateET"
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints="Today's Date"
                     android:focusable="false"
                     android:hint="@string/term_start"
@@ -75,7 +75,7 @@
 
                 <TextView
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:layout_margin="2dp"
                     android:paddingStart="10dp"
                     android:paddingTop="10dp"
@@ -85,7 +85,7 @@
                 <EditText
                     android:id="@+id/termEndDateET"
                     android:layout_width="200dp"
-                    android:layout_height="48dp"
+                    android:layout_height="wrap_content"
                     android:autofillHints="Today's Date"
                     android:focusable="false"
                     android:hint="@string/term_end"
@@ -119,20 +119,11 @@
         android:id="@+id/courseDetailsRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/termDetails_SV" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/termDetailsFAB"
-        style="?android:attr/buttonBarButtonStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:contentDescription="@string/floating_add_desc"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/add_36" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.707" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
