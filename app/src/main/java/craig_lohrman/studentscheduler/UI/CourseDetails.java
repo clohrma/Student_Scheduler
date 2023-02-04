@@ -40,7 +40,7 @@ import craig_lohrman.studentscheduler.entities.Term;
 
 public class CourseDetails extends AppCompatActivity {
 
-    EditText editCourseName, editCourseStartDate, editCourseEndDate, editInstructorName, editShareNote;
+    EditText editCourseTernID, editCourseName, editCourseStartDate, editCourseEndDate, editInstructorName, editShareNote;
     String cNameString, cStartDateString, cEndDateString, cShareNoteString, cStatusString, cInstructorName;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
@@ -54,6 +54,7 @@ public class CourseDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
 
+        editCourseTernID = findViewById(R.id.courseTermIdET);
         editCourseName = findViewById(R.id.courseNameET);
         editCourseStartDate = findViewById(R.id.courseStartDateET);
         editCourseEndDate = findViewById(R.id.courseEndDateET);
@@ -74,6 +75,7 @@ public class CourseDetails extends AppCompatActivity {
         cInstructorName = getIntent().getStringExtra("courseInstructorName");
         courseTermID = getIntent().getIntExtra("courseTermID", -1);
 
+        editCourseTernID.setText(courseTermID);
         editCourseName.setText(cNameString);
         editCourseStartDate.setText(cStartDateString);
         editCourseEndDate.setText(cEndDateString);
@@ -102,11 +104,7 @@ public class CourseDetails extends AppCompatActivity {
         cInstructorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                for(int i = 0; i < cInstructorSpinner.getCount(); i++){
-                    if(cInstructorSpinner.getItemAtPosition(i).toString().equalsIgnoreCase(cInstructorName)){
-                        cInstructorSpinner.getItemAtPosition(i);
-                    }
-                }
+                cInstructorSpinner.setSelection(position);
             }
 
             @Override

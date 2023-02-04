@@ -31,7 +31,7 @@ import craig_lohrman.studentscheduler.entities.Instructor;
 
 public class AssessmentDetails extends AppCompatActivity {
 
-    EditText editAssessmentName, editAssessmentStartDate, editAssessmentEndDate;
+    EditText editAssessmentCourseID, editAssessmentName, editAssessmentStartDate, editAssessmentEndDate;
     String aName, aStartDate, aEndDate, aType;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
@@ -46,6 +46,7 @@ public class AssessmentDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_details);
 
+        editAssessmentCourseID = findViewById(R.id.assessmentCourseIdET);
         editAssessmentName = findViewById(R.id.assessmentNameET);
         editAssessmentStartDate = findViewById(R.id.assessmentStartDateET);
         editAssessmentEndDate = findViewById(R.id.assessmentEndDateET);
@@ -62,7 +63,9 @@ public class AssessmentDetails extends AppCompatActivity {
         aEndDate = getIntent().getStringExtra("assessmentEndDate");
         assessmentCourseID = getIntent().getIntExtra("assessmentCourseID", -1);
         aTypeINT = getIntent().getIntExtra("assessmentType", -1);
+        assessmentCourseID = getIntent().getIntExtra("editAssessmentCourseID", -1);
 
+        editAssessmentCourseID.setText(assessmentCourseID);
         editAssessmentName.setText(aName);
         editAssessmentStartDate.setText(aStartDate);
         editAssessmentEndDate.setText(aStartDate);
@@ -92,15 +95,15 @@ public class AssessmentDetails extends AppCompatActivity {
                             editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.insert(assessment);
                     Toast.makeText(AssessmentDetails.this, aName + " was added to Assessments", Toast.LENGTH_LONG).show();
-                    //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(AssessmentDetails.this, MainActivity.class);
+                    startActivity(intent);
                 } else {
                     assessment = new Assessment(assessmentID, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
                             editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.update(assessment);
                     Toast.makeText(AssessmentDetails.this, aName + " was updated in Assessments", Toast.LENGTH_LONG).show();
-                    //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                    //startActivity(intent);
+                    Intent intent = new Intent(AssessmentDetails.this, MainActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -111,8 +114,6 @@ public class AssessmentDetails extends AppCompatActivity {
             public void onClick(View v) {
                 repository.delete(assessment);
                 Toast.makeText(AssessmentDetails.this, assessment.getAssessmentName() + " was deleted", Toast.LENGTH_LONG).show();
-                //Intent intent = new Intent(AssessmentDetails.this, CourseDetails.class);
-                //startActivity(intent);
             }
         });
 

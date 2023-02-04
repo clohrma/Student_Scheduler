@@ -72,9 +72,13 @@ public class MainActivity extends AppCompatActivity {
                 Course course3 = new Course(0, "Course 3", "03-01-2023", "04-01-2023",
                         "Dropped", "3", "Jane Doe",3);
 
+                Course course4 = new Course(0, "Course 4", "04-01-2023", "05-01-2023",
+                        "Plan to Take", "4", "Jane Doe",2);
+
                 repository.insert(course);
                 repository.insert(course2);
                 repository.insert(course3);
+                repository.insert(course4);
 
                 Instructor instructor = new Instructor(0, "John Smith", "123-456-7890",
                         "johnsmith@company.com", 1);
@@ -98,9 +102,13 @@ public class MainActivity extends AppCompatActivity {
                 Assessment assessment3 = new Assessment(0, "Assessment 3", "03-01-2023",
                         "04-01-2023","Performance", 3);
 
+                Assessment assessment4 = new Assessment(0, "Assessment 4", "04-01-2023",
+                        "05-01-2023","Objective", 2);
+
                 repository.insert(assessment);
                 repository.insert(assessment2);
                 repository.insert(assessment3);
+                repository.insert(assessment4);
 
                 return true;
         }
