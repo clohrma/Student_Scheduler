@@ -5,8 +5,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -33,11 +36,12 @@ public class TermDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
-    EditText editTermName, editTermStartDate, editTermEndDate;
+    EditText editTermName, editTermStartDate, editTermEndDate, send_termID;
     String termNameString, startDateString, endDateString;
     int termID, numCourses;
     Term term, currentTerm;
     Repository repository;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,13 +89,43 @@ public class TermDetails extends AppCompatActivity {
                 if (termID == -1) {
                     term = new Term(0, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.insert(term);
-                    Intent intent = new Intent(TermDetails.this, MainActivity.class);
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
                     startActivity(intent);
                 } else {
-                    term = new Term(0, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
+                    term = new Term(termID, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.update(term);
-                    Intent intent = new Intent(TermDetails.this, MainActivity.class);
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
                     startActivity(intent);
+                }
+            }
+        });
+
+        Button delete = findViewById(R.id.deleteTerm);
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Term term : repository.getAllTerms()) {
+                    if (term.getTermID() == termID && termID != -1) {
+                        currentTerm = term;
+                    }
+                }
+
+                numCourses = 0;
+                for (Course course : repository.getAllCourses()) {
+                    if (course.getCourseTermID() == termID && termID != -1) {
+                        numCourses++;
+                    }
+
+                    if (numCourses != 0) {
+                        Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
+
+                        refreshTermRecycler();
+                    } else {
+                        repository.delete(currentTerm);
+                        Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
+
+                        refreshTermRecycler();
+                    }
                 }
             }
         });
@@ -130,7 +164,7 @@ public class TermDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Date date;
                 String info = editTermEndDate.getText().toString();
-                if (info.equals("")){
+                if (info.equals("")) {
                     info = "01/01/2023";
                 }
                 try {
@@ -153,42 +187,52 @@ public class TermDetails extends AppCompatActivity {
                 refreshEndDate();
             }
         };
-
-        Button delete = findViewById(R.id.deleteTerm);
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (Term term : repository.getAllTerms()) {
-                    if (term.getTermID() == termID) {
-                        currentTerm = term;
-                    }
-                }
-
-                numCourses = 0;
-                for (Course course : repository.getAllCourses()) {
-                    if (course.getCourseTermID() == termID) {
-                        Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Courses assigned to it.", Toast.LENGTH_LONG).show();
-                    } else {
-                        repository.delete(currentTerm);
-                        Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
     }
 
-    private void refreshStartDate(){
-        String dateSTR = "MM/dd/yy";
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.term_menu, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.termAddCourse) {
+            //TODO Figure out how to add a course to a term
+            Button addCourseToTerm = findViewById(R.id.termAddCourse);
+            addCourseToTerm.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(TermDetails.this, AddCourseToTerm.class);
+                    intent.putExtra("termID", termID);
+                    startActivity(intent);
+                }
+            });
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void refreshStartDate() {
+        String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
         editTermStartDate.setText(dateSDF.format(myCalStart.getTime()));
     }
 
-    private void refreshEndDate(){
-        String dateSTR = "MM/dd/yy";
+    private void refreshEndDate() {
+        String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
         editTermEndDate.setText(dateSDF.format(myCalEnd.getTime()));
+    }
+
+    private void refreshTermRecycler() {
+        repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
+        final TermAdapter termAdapter = new TermAdapter(this);
+        recyclerView.setAdapter(termAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Term> allTerms = repository.getAllTerms();
     }
 
     @Override

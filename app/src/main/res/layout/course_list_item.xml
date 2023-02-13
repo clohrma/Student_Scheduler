@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -19,33 +19,31 @@
         <TextView
             android:id="@+id/courseNameListItemTV"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp"
-            android:text="@string/course_name"
-            android:textSize="18sp"
-            tools:layout_editor_absoluteX="4dp"
-            tools:layout_editor_absoluteY="21dp" />
+            android:textSize="20sp"
+            android:text="@string/course_name"/>
 
         <TextView
             android:id="@+id/courseStartDateTV"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp"
-            android:text="@string/course_start_date_ex"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/assessmentNameTV"
-            tools:layout_editor_absoluteY="21dp" />
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:text="@string/date_ex"
+            app:layout_constraintStart_toEndOf="@+id/assessmentNameTV"/>
 
         <TextView
             android:id="@+id/courseEndDateTV"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:padding="10dp"
-            android:text="@string/course_end_date_ex"
-            android:textSize="18sp"
-            app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"
-            tools:layout_editor_absoluteY="21dp" />
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:text="@string/date_ex"
+            app:layout_constraintStart_toEndOf="@+id/assessmentStartDateTV"/>
 
-    </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -64,16 +64,16 @@ public class MainActivity extends AppCompatActivity {
                 repository.insert(term3);
 
                 Course course = new Course(0, "Course 1", "01-01-2023", "02-01-2023",
-                        "In Progress", "1", "John Smith",1);
+                        "In Progress", "Notes 1", "John Smith",1);
 
                 Course course2 = new Course(0, "Course 2", "02-01-2023", "03-01-2023",
-                        "Completed", "2", "Jim Smith",1);
+                        "Completed", "Notes 2", "Jim Smith",1);
 
                 Course course3 = new Course(0, "Course 3", "03-01-2023", "04-01-2023",
-                        "Dropped", "3", "Jane Doe",3);
+                        "Dropped", "Notes 3", "Jane Doe",3);
 
                 Course course4 = new Course(0, "Course 4", "04-01-2023", "05-01-2023",
-                        "Plan to Take", "4", "Jane Doe",2);
+                        "Plan to Take", "Notes 4", "Jane Doe",2);
 
                 repository.insert(course);
                 repository.insert(course2);

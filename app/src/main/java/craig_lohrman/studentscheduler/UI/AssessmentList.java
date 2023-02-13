@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -19,12 +21,24 @@ import craig_lohrman.studentscheduler.entities.Term;
 
 public class AssessmentList extends AppCompatActivity {
 
-    private Repository repository;
+    Repository repository;
+    Assessment assessment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_list);
+
+
+        FloatingActionButton fab = findViewById(R.id.assessmentListFAB);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AssessmentList.this, AssessmentDetails.class);
+
+                startActivity(intent);
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.assessmentListRecyclerView);
         repository = new Repository(getApplication());
@@ -34,13 +48,16 @@ public class AssessmentList extends AppCompatActivity {
         List<Assessment> allAssessments = repository.getAllAssessments();
         assessmentAdapter.setAssessment(allAssessments);
 
-        FloatingActionButton fab = findViewById(R.id.assessmentListFAB);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(AssessmentList.this, AssessmentDetails.class);
-                startActivity(intent);
-            }
-        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        List<Assessment> allAssessment = repository.getAllAssessments();
+        RecyclerView recyclerView = findViewById(R.id.assessmentListRecyclerView);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        assessmentAdapter.setAssessment(allAssessment);
     }
 }

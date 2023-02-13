@@ -1,5 +1,6 @@
 package craig_lohrman.studentscheduler.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -49,5 +50,11 @@ public class Term {
 
     public void setTermEndDate(String termEndDate) {
         this.termEndDate = termEndDate;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return termName;
     }
 }

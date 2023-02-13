@@ -27,30 +27,40 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/assessment_course_id"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/assessment_name" />
 
                 <EditText
-                    android:id="@+id/assessmentCourseIdET"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
+                    android:id="@+id/assessmentNameET"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:autofillHints="courseNameET"
-                    android:hint="@string/assessment_course_id_ex"
-                    android:inputType="number"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHint="#757575" />
+                    android:hint="@string/assessment_name_ex"
+                    android:inputType="text" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/assessment_start_date"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/assessmentStartDateET"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:hint="@string/date_ex"
+                    android:inputType="date" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -58,87 +68,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/assessment_name"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/assessmentNameET"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:autofillHints="courseNameET"
-                    android:hint="@string/assessment_name_ex"
-                    android:inputType="text"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHint="#757575" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/assessment_start_date"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/assessmentStartDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:autofillHints="startDate"
-                    android:hint="@string/assessment_start_date_ex"
-                    android:inputType="date"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHint="#757575" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/assessment_end_date"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/assessmentEndDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="80dp"
-                    android:layout_margin="2dp"
-                    android:autofillHints="endDate"
-                    android:hint="@string/assessment_end_date_ex"
-                    android:inputType="date"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:textColorHint="#757575" />
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:focusable="false"
+                    android:hint="@string/date_ex"
+                    android:inputType="date" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -149,25 +90,23 @@
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/saveAssessment"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:text="@string/save_term"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:layout_width="210dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/save_button" />
 
                 <Button
                     android:id="@+id/deleteAssessment"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="195dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_term"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/delete_button" />
+
             </androidx.appcompat.widget.LinearLayoutCompat>
 
         </androidx.appcompat.widget.LinearLayoutCompat>

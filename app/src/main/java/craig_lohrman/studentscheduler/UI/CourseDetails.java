@@ -36,35 +36,34 @@ import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
 import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Instructor;
-import craig_lohrman.studentscheduler.entities.Term;
 
 public class CourseDetails extends AppCompatActivity {
 
-    EditText editCourseTernID, editCourseName, editCourseStartDate, editCourseEndDate, editInstructorName, editShareNote;
+    EditText editCourseTermID, editCourseName, editCourseStartDate, editCourseEndDate, editShareNote;
     String cNameString, cStartDateString, cEndDateString, cShareNoteString, cStatusString, cInstructorName;
+    String cStatusStringSelected, instructorNameSelected, spinnerInstructorName, spinnerTermId;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
-    int courseID, courseTermID;
+    int courseID, courseTermID, numAssessments;
     Course course, currentCourse;
     Repository repository;
+    Spinner cInstructorSpinner, spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
 
-        editCourseTernID = findViewById(R.id.courseTermIdET);
+        String dateFormatted = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
+
         editCourseName = findViewById(R.id.courseNameET);
         editCourseStartDate = findViewById(R.id.courseStartDateET);
         editCourseEndDate = findViewById(R.id.courseEndDateET);
         editShareNote = findViewById(R.id.courseShareNoteET);
 
-        String dateSTR = "MM/dd/yyyy";
-        SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
-
-        editCourseStartDate.setText(dateSDF.format(new Date()));
-        editCourseEndDate.setText(dateSDF.format(new Date()));
+        editCourseStartDate.setText(dateFormatted);
+        editCourseEndDate.setText(dateFormatted);
 
         courseID = getIntent().getIntExtra("courseID", -1);
         cNameString = getIntent().getStringExtra("courseName");
@@ -75,12 +74,21 @@ public class CourseDetails extends AppCompatActivity {
         cInstructorName = getIntent().getStringExtra("courseInstructorName");
         courseTermID = getIntent().getIntExtra("courseTermID", -1);
 
-        editCourseTernID.setText(courseTermID);
+        editCourseTermID.setText(String.valueOf(courseTermID));
         editCourseName.setText(cNameString);
         editCourseStartDate.setText(cStartDateString);
         editCourseEndDate.setText(cEndDateString);
         editShareNote.setText(cShareNoteString);
 
+        FloatingActionButton addInstructor = findViewById(R.id.courseInstructorAdd);
+        addInstructor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(CourseDetails.this, InstructorDetails.class);
+                intent.putExtra("courseID", courseID);
+                startActivity(intent);
+            }
+        });
 
         RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
         repository = new Repository(getApplication());
@@ -96,35 +104,48 @@ public class CourseDetails extends AppCompatActivity {
         }
         assessmentAdapter.setAssessment(filteredAssessments);
 
-        Spinner cInstructorSpinner = findViewById(R.id.courseInstructorNameSpinner);
-        ArrayAdapter<Instructor> cInstructorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, repository.getAllInstructors());
+        List<Instructor> allInstructors = repository.getAllInstructors();
+        cInstructorSpinner = findViewById(R.id.courseInstructorNameSpinner);
+        ArrayAdapter<Instructor> cInstructorAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allInstructors);
         cInstructorAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         cInstructorSpinner.setAdapter(cInstructorAdapter);
+        if (courseID != -1) {
+            for (int i = 0; i < allInstructors.size(); i++) {
+                String instructorName = cInstructorSpinner.getItemAtPosition(i).toString();
+                if (instructorName.equalsIgnoreCase(cInstructorName)) {
+                    cInstructorSpinner.setSelection(i);
+                }
+            }
+        }
 
         cInstructorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cInstructorSpinner.setSelection(position);
+                instructorNameSelected = parent.getItemAtPosition(position).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
+                Toast.makeText(CourseDetails.this, "No Instructor is selected", Toast.LENGTH_LONG).show();
             }
         });
 
-        Spinner spinner = findViewById(R.id.courseStatusSpinner);
+        spinner = findViewById(R.id.courseStatusSpinner);
         ArrayAdapter<CharSequence> courseArrayAdapter = ArrayAdapter.createFromResource(this, R.array.course_status_list, android.R.layout.simple_spinner_item);
         courseArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         spinner.setAdapter(courseArrayAdapter);
+        int cStatusItem = convertSpinnerToInt(spinner, cStatusString);
+        spinner.setSelection(cStatusItem);
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spinner.setSelection(position);
+                cStatusStringSelected = parent.getItemAtPosition(position).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+                Toast.makeText(CourseDetails.this, "No Type is selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -132,17 +153,17 @@ public class CourseDetails extends AppCompatActivity {
         saveCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (courseID != -1) {
+                if (courseID == -1) {
                     course = new Course(0, editCourseName.getText().toString(), editCourseStartDate.getText().toString(), editCourseEndDate.getText().toString(),
-                            cStatusString, cShareNoteString, cInstructorName, courseTermID);
+                            cStatusStringSelected, editShareNote.getText().toString(), instructorNameSelected, courseTermID);
                     repository.insert(course);
-                    Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
                     startActivity(intent);
                 } else {
-                    course = new Course(0, editCourseName.getText().toString(), editCourseStartDate.getText().toString(), editCourseEndDate.getText().toString(),
-                            cStatusString, cShareNoteString, cInstructorName, courseTermID);
+                    course = new Course(courseID, editCourseName.getText().toString(), editCourseStartDate.getText().toString(),
+                            editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(), instructorNameSelected, Integer.parseInt(editCourseTermID.getText().toString()));
                     repository.update(course);
-                    Intent intent = new Intent(CourseDetails.this, TermDetails.class);
+                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
                     startActivity(intent);
                 }
             }
@@ -152,14 +173,38 @@ public class CourseDetails extends AppCompatActivity {
         deleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repository.delete(currentCourse);
-                Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
+                for (Course course : repository.getAllCourses()) {
+                    if (course.getCourseID() == courseID) {
+                        currentCourse = course;
+                    }
+                }
+
+                numAssessments = 0;
+                for (Assessment assessment : repository.getAllAssessments()) {
+                    if (assessment.getAssessmentCourseID() == courseID) {
+                        ++numAssessments;
+                    }
+
+                    if (numAssessments == 0) {
+                        repository.delete(currentCourse);
+                        Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
+
+                        refreshCourseRecycler();
+                    } else {
+                        Toast.makeText(CourseDetails.this, "Cannot delete " + currentCourse.getCourseName() + " with Assessment(s) assigned to it.", Toast.LENGTH_LONG).show();
+
+                        refreshCourseRecycler();
+                    }
+                }
             }
         });
 
         editCourseStartDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dateSTR = "MM/dd/yyyy";
+                SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
+
                 Date date;
                 String info = editCourseStartDate.getText().toString();
                 if (info.equals("")) {
@@ -191,6 +236,9 @@ public class CourseDetails extends AppCompatActivity {
         editCourseEndDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String dateSTR = "MM/dd/yyyy";
+                SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
+
                 Date date;
                 String info = editCourseEndDate.getText().toString();
                 if (info.equals("")) {
@@ -218,6 +266,16 @@ public class CourseDetails extends AppCompatActivity {
         };
     }
 
+    private int convertSpinnerToInt(Spinner spinner, String name) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            String instructorName = spinner.getItemAtPosition(i).toString();
+            if (instructorName.equalsIgnoreCase(name)) {
+                return (i);
+            }
+        }
+        return 0;
+    }
+
     private void refreshStartDate() {
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
@@ -241,12 +299,18 @@ public class CourseDetails extends AppCompatActivity {
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
-        if(item.getItemId() == android.R.id.home) {
+        if (item.getItemId() == android.R.id.home) {
             this.finish();
             return true;
         }
 
-        if(item.getItemId() == R.id.courseShareNote) {
+        if (item.getItemId() == R.id.courseAddAssessment) {
+            //TODO Figure out how to add an Assessment to a Course
+
+            return true;
+        }
+
+        if (item.getItemId() == R.id.courseShareNote) {
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT, editShareNote.getText().toString());
@@ -257,7 +321,7 @@ public class CourseDetails extends AppCompatActivity {
             return true;
         }
 
-        if(item.getItemId() == R.id.courseNotifyStart) {
+        if (item.getItemId() == R.id.courseNotifyStart) {
             String courseStartDate = editCourseStartDate.getText().toString();
             Date date = null;
 
@@ -276,25 +340,35 @@ public class CourseDetails extends AppCompatActivity {
             return true;
         }
 
-        if(item.getItemId() == R.id.courseNotifyEnd) {
-            String courseEndDate = editCourseEndDate.getText().toString();
+        if (item.getItemId() == R.id.courseNotifyEnd) {
+            String courseStartDate = editCourseStartDate.getText().toString();
             Date date = null;
 
             try {
-                date = dateSDF.parse(courseEndDate);
+                date = dateSDF.parse(courseStartDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
             Long trigger = date.getTime();
             Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
-            intent.putExtra("key", courseEndDate + " is removed.");
+            intent.putExtra("key", courseStartDate + " is removed.");
             PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void refreshCourseRecycler() {
+        repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(R.id.courseListRecyclerView);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        List<Course> allCourses = repository.getAllCourses();
     }
 
     @Override

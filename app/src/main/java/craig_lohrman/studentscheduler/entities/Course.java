@@ -1,5 +1,6 @@
 package craig_lohrman.studentscheduler.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -90,5 +91,11 @@ public class Course {
 
     public void setCourseTermID(int courseTermID) {
         this.courseTermID = courseTermID;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return courseName;
     }
 }

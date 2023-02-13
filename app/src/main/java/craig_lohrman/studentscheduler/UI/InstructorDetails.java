@@ -62,8 +62,7 @@ public class InstructorDetails extends AppCompatActivity {
                     repository.insert(instructor);
                     Intent intent = new Intent(InstructorDetails.this, CourseDetails.class);
                     startActivity(intent);
-                }
-                else {
+                } else {
                     instructor = new Instructor(instructorID, editInstructorName.getText().toString(), editInstructorPhone.getText().toString(),
                             editInstructorEmail.getText().toString(), instructorCourseID);
                     repository.update(instructor);
@@ -85,7 +84,7 @@ public class InstructorDetails extends AppCompatActivity {
         });
     }
 
-    private void refreshInstructorRecycler(){
+    private void refreshInstructorRecycler() {
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.instructorListRecycler);
         final InstructorAdapter instructorAdapter = new InstructorAdapter(this);

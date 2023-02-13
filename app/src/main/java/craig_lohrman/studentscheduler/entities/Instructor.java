@@ -1,5 +1,6 @@
 package craig_lohrman.studentscheduler.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -59,5 +60,11 @@ public class Instructor {
 
     public void setInstructorCourseID(int instructorCourseID) {
         this.instructorCourseID = instructorCourseID;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return instructorName;
     }
 }

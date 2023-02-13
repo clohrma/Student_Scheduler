@@ -22,133 +22,87 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
-                    android:text="@string/courses_term_id"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <EditText
-                    android:id="@+id/courseTermIdET"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="courseNameET"
-                    android:hint="@string/course_term_id"
-                    android:inputType="text"
-                    android:textColorHint="#757575" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/course_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/courseNameET"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:autofillHints="courseNameET"
                     android:hint="@string/course_name_ex"
-                    android:inputType="text"
-                    android:textColorHint="#757575" />
+                    android:inputType="text" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/course_start_date" />
 
                 <EditText
                     android:id="@+id/courseStartDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="Today's Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:focusable="false"
-                    android:hint="@string/course_start_date_ex"
+                    android:hint="@string/date_ex"
                     android:inputType="date" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/course_end_date" />
 
                 <EditText
                     android:id="@+id/courseEndDateET"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:autofillHints="Today's Date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:focusable="false"
-                    android:hint="@string/course_end_date_ex"
+                    android:hint="@string/date_ex"
                     android:inputType="date" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/course_instructor_name"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
                     android:id="@+id/courseInstructorNameSpinner"
-                    android:layout_width="150dp"
-                    android:layout_height="48dp"
-                    android:autofillHints="Instructor's Name" />
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent" />
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/courseInstructorAdd"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:clickable="true"
                     android:contentDescription="@string/floating_add_desc"
                     app:srcCompat="@drawable/instructor_add_24" />
@@ -156,63 +110,51 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp"
-                    android:paddingEnd="10dp"
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
                     android:text="@string/share_note"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
                     android:id="@+id/courseShareNoteET"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:autofillHints="endDate"
                     android:hint="@string/notes"
-                    android:inputType="text"
-                    android:textColorHint="#757575" />
+                    android:inputType="text" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <Spinner
+                android:id="@+id/courseStatusSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <Spinner
-                    android:id="@+id/courseStatusSpinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="@string/spinner_text" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:layout_height="50dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="match_parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent">
 
                 <Button
                     android:id="@+id/saveCourse"
                     style="?android:attr/buttonBarButtonStyle"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/save_term"
+                    android:layout_width="210dp"
+                    android:layout_height="match_parent"
+                    android:text="@string/save_button"
                     app:layout_constraintRight_toRightOf="parent" />
 
                 <Button
                     android:id="@+id/deleteCourse"
                     style="?android:attr/buttonBarButtonStyle"
                     android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/delete_term"
-                    app:layout_constraintRight_toRightOf="parent" />
+                    android:layout_height="match_parent"
+                    android:text="@string/delete_button" />
 
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -222,11 +164,7 @@
         android:id="@+id/courseDetailsRecycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/courseDetails_SV"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseDetails_SV" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

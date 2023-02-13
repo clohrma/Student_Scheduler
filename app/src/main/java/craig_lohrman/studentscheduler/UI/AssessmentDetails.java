@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,7 +29,9 @@ import java.util.Objects;
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
+import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Instructor;
+import craig_lohrman.studentscheduler.entities.Term;
 
 public class AssessmentDetails extends AppCompatActivity {
 
@@ -36,17 +40,16 @@ public class AssessmentDetails extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
-    int assessmentID, assessmentCourseID, aTypeINT;
-    String[] type = {"Performance", "Objective"};
-    Assessment assessment;
+    int assessmentID, assessmentCourseID;
+    Assessment assessment, currentAssessment;
     Repository repository;
+    List<Assessment> allAssessments;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_assessment_details);
 
-        editAssessmentCourseID = findViewById(R.id.assessmentCourseIdET);
         editAssessmentName = findViewById(R.id.assessmentNameET);
         editAssessmentStartDate = findViewById(R.id.assessmentStartDateET);
         editAssessmentEndDate = findViewById(R.id.assessmentEndDateET);
@@ -62,23 +65,26 @@ public class AssessmentDetails extends AppCompatActivity {
         aStartDate = getIntent().getStringExtra("assessmentStartDate");
         aEndDate = getIntent().getStringExtra("assessmentEndDate");
         assessmentCourseID = getIntent().getIntExtra("assessmentCourseID", -1);
-        aTypeINT = getIntent().getIntExtra("assessmentType", -1);
-        assessmentCourseID = getIntent().getIntExtra("editAssessmentCourseID", -1);
+        aType = getIntent().getStringExtra("assessmentType");
 
-        editAssessmentCourseID.setText(assessmentCourseID);
+        editAssessmentCourseID.setText(String.valueOf(assessmentCourseID));
         editAssessmentName.setText(aName);
         editAssessmentStartDate.setText(aStartDate);
         editAssessmentEndDate.setText(aStartDate);
         editAssessmentEndDate.setText(aEndDate);
 
         Spinner aSpinner = findViewById(R.id.assessmentTypeSpinner);
-        ArrayAdapter assessmentArrayAdapter = new ArrayAdapter(this, android.R.layout.simple_spinner_item, type);
+        ArrayAdapter<CharSequence> assessmentArrayAdapter = ArrayAdapter.createFromResource(this, R.array.assessment_type_list, android.R.layout.simple_spinner_item);
         assessmentArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
         aSpinner.setAdapter(assessmentArrayAdapter);
+        int cStatusItem = convertSpinnerToInt(aSpinner, aType);
+        aSpinner.setSelection(cStatusItem);
+
         aSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 aType = aSpinner.getSelectedItem().toString();
+                Toast.makeText(AssessmentDetails.this, aType +" is selected", Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -91,18 +97,14 @@ public class AssessmentDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (assessmentID == -1) {
-                    assessment = new Assessment(0, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
-                            editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
+                    assessment = new Assessment(0, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(), editAssessmentEndDate.getText().toString(), aType, Integer.parseInt(editAssessmentCourseID.getText().toString()));
                     repository.insert(assessment);
-                    Toast.makeText(AssessmentDetails.this, aName + " was added to Assessments", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(AssessmentDetails.this, MainActivity.class);
+                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
                     startActivity(intent);
                 } else {
-                    assessment = new Assessment(assessmentID, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
-                            editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
+                    assessment = new Assessment(assessmentID, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(), editAssessmentEndDate.getText().toString(), aType, Integer.parseInt(editAssessmentCourseID.getText().toString()));
                     repository.update(assessment);
-                    Toast.makeText(AssessmentDetails.this, aName + " was updated in Assessments", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(AssessmentDetails.this, MainActivity.class);
+                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
                     startActivity(intent);
                 }
             }
@@ -112,8 +114,15 @@ public class AssessmentDetails extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repository.delete(assessment);
+                for (Assessment assessment : repository.getAllAssessments()) {
+                    if (assessment.getAssessmentID() == assessmentID && assessmentID != -1) {
+                        currentAssessment = assessment;
+                    }
+                }
+                repository.delete(currentAssessment);
                 Toast.makeText(AssessmentDetails.this, assessment.getAssessmentName() + " was deleted", Toast.LENGTH_LONG).show();
+
+                refreshAssessmentRecycler();
             }
         });
 
@@ -171,11 +180,30 @@ public class AssessmentDetails extends AppCompatActivity {
         };
     }
 
+    private int convertSpinnerToInt(Spinner spinner, String name) {
+        for (int i = 0; i < spinner.getCount(); i++) {
+            String instructorName = spinner.getItemAtPosition(i).toString();
+            if (instructorName.equalsIgnoreCase(name)) {
+                return (i);
+            }
+        }
+        return 0;
+    }
+
     private void updateDateET() {
         String dateFormat = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateFormat, Locale.US);
 
         editAssessmentStartDate.setText(dateSDF.format(myCalStart.getTime()));
         editAssessmentEndDate.setText(dateSDF.format(myCalEnd.getTime()));
+    }
+
+    private void refreshAssessmentRecycler() {
+        repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(R.id.assessmentListRecyclerView);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        allAssessments = repository.getAllAssessments();
     }
 }

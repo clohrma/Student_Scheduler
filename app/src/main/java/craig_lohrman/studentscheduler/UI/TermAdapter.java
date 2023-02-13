@@ -17,11 +17,18 @@ import craig_lohrman.studentscheduler.entities.Term;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder> {
     class TermViewHolder extends RecyclerView.ViewHolder {
+
         private final TextView termItemView;
+        private final TextView termStartDate;
+        private final TextView termEndDate;
 
         private TermViewHolder(View itemView) {
             super(itemView);
+
             termItemView = itemView.findViewById(R.id.termListItemTV);
+            termStartDate = itemView.findViewById(R.id.termStartDateTV);
+            termEndDate = itemView.findViewById(R.id.termEndDateTV);
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -59,9 +66,13 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermViewHolder
     public void onBindViewHolder(@NonNull TermViewHolder holder, int position) {
         if (mTerms != null) {
             Term current = mTerms.get(position);
-            String name = current.getTermName();
+            String tName = current.getTermName();
+            String tStartDate = current.getTermStartDate();
+            String tEndDate = current.getTermEndDate();
 
-            holder.termItemView.setText(name);
+            holder.termItemView.setText(tName);
+            holder.termStartDate.setText(tStartDate);
+            holder.termEndDate.setText(tEndDate);
         } else {
             holder.termItemView.setText(R.string.no_terms_listed);
         }

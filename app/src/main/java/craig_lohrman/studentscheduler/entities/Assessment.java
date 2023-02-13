@@ -1,5 +1,6 @@
 package craig_lohrman.studentscheduler.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
@@ -70,4 +71,11 @@ public class Assessment {
     public void setAssessmentType(String assessmentType) {
         this.assessmentType = assessmentType;
     }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return assessmentName;
+    }
+
 }
