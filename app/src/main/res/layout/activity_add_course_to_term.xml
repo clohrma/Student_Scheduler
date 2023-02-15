@@ -30,8 +30,18 @@
         android:id="@+id/saveCourseToTerm"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
         android:text="@string/save_button"
         app:layout_constraintTop_toBottomOf="@+id/courseToTermBox"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:id="@+id/deleteCourseFromTerm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/delete_button"
+        app:layout_constraintTop_toBottomOf="@+id/saveCourseToTerm"
         app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

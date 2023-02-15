@@ -16,7 +16,7 @@ import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Instructor;
 import craig_lohrman.studentscheduler.entities.Term;
 
-@Database(entities = {Term.class, Course.class, Assessment.class, Instructor.class}, version = 13, exportSchema = false)
+@Database(entities = {Term.class, Course.class, Assessment.class, Instructor.class}, version = 14, exportSchema = false)
 public abstract class Scheduler_DB_Builder extends RoomDatabase {
     public abstract TermDAO termDAO();
 

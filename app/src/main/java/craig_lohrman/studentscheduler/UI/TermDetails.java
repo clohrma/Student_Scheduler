@@ -1,9 +1,5 @@
 package craig_lohrman.studentscheduler.UI;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +12,9 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -41,7 +39,6 @@ public class TermDetails extends AppCompatActivity {
     int termID, numCourses;
     Term term, currentTerm;
     Repository repository;
-    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +66,7 @@ public class TermDetails extends AppCompatActivity {
 
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
-        repository = new Repository(getApplication());
+        //repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -195,21 +192,15 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-
-        if (item.getItemId() == R.id.termAddCourse) {
-            //TODO Figure out how to add a course to a term
-            Button addCourseToTerm = findViewById(R.id.termAddCourse);
-            addCourseToTerm.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(TermDetails.this, AddCourseToTerm.class);
-                    intent.putExtra("termID", termID);
-                    startActivity(intent);
-                }
-            });
-            return true;
+        for (Term term : repository.getAllTerms()) {
+            if (term.getTermID() == termID) {
+                Intent intent = new Intent(TermDetails.this, AddCourseToTerm.class);
+                intent.putExtra("termID", termID);
+                startActivity(intent);
+                return true;
+            }
         }
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
     private void refreshStartDate() {
@@ -233,24 +224,5 @@ public class TermDetails extends AppCompatActivity {
         recyclerView.setAdapter(termAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         List<Term> allTerms = repository.getAllTerms();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        List<Course> allCourses = repository.getAllCourses();
-        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
-        final CourseAdapter courseAdapter = new CourseAdapter(this);
-        recyclerView.setAdapter(courseAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        courseAdapter.setCourses(allCourses);
-
-        List<Course> filteredCourses = new ArrayList<>();
-        for (Course course : allCourses) {
-            if (course.getCourseTermID() == termID) {
-                filteredCourses.add(course);
-            }
-        }
-        courseAdapter.setCourses(filteredCourses);
     }
 }

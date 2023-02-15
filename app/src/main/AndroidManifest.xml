@@ -18,7 +18,7 @@
             android:name=".UI.AddAssessmentToCourse"
             android:exported="false"
             android:label="@string/add_assessment_to_course"
-            android:parentActivityName=".UI.CourseDetails">
+            android:parentActivityName=".UI.CourseList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -27,7 +27,7 @@
             android:name=".UI.AddCourseToTerm"
             android:exported="false"
             android:label="@string/add_course_to_term"
-            android:parentActivityName=".UI.TermDetails">
+            android:parentActivityName=".UI.TermList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

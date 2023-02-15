@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,15 +31,18 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
 import craig_lohrman.studentscheduler.entities.Course;
 import craig_lohrman.studentscheduler.entities.Instructor;
+import craig_lohrman.studentscheduler.entities.Term;
 
 public class CourseDetails extends AppCompatActivity {
 
+    String dateFormatted = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
     EditText editCourseTermID, editCourseName, editCourseStartDate, editCourseEndDate, editShareNote;
     String cNameString, cStartDateString, cEndDateString, cShareNoteString, cStatusString, cInstructorName;
     String cStatusStringSelected, instructorNameSelected, spinnerInstructorName, spinnerTermId;
@@ -54,8 +58,6 @@ public class CourseDetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_details);
-
-        String dateFormatted = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
 
         editCourseName = findViewById(R.id.courseNameET);
         editCourseStartDate = findViewById(R.id.courseStartDateET);
@@ -121,12 +123,11 @@ public class CourseDetails extends AppCompatActivity {
         cInstructorSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                instructorNameSelected = parent.getItemAtPosition(position).toString();
+                instructorNameSelected = cInstructorSpinner.getItemAtPosition(position).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(CourseDetails.this, "No Instructor is selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -140,12 +141,11 @@ public class CourseDetails extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                cStatusStringSelected = parent.getItemAtPosition(position).toString();
+                cStatusStringSelected = spinner.getItemAtPosition(position).toString();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-                Toast.makeText(CourseDetails.this, "No Type is selected", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -154,14 +154,18 @@ public class CourseDetails extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (courseID == -1) {
-                    course = new Course(0, editCourseName.getText().toString(), editCourseStartDate.getText().toString(), editCourseEndDate.getText().toString(),
-                            cStatusStringSelected, editShareNote.getText().toString(), instructorNameSelected, courseTermID);
+                    course = new Course(0, editCourseName.getText().toString(), editCourseStartDate.getText().toString(),
+                            editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(),
+                            instructorNameSelected, courseTermID);
+
                     repository.insert(course);
                     Intent intent = new Intent(CourseDetails.this, CourseList.class);
                     startActivity(intent);
                 } else {
                     course = new Course(courseID, editCourseName.getText().toString(), editCourseStartDate.getText().toString(),
-                            editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(), instructorNameSelected, Integer.parseInt(editCourseTermID.getText().toString()));
+                            editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(),
+                            instructorNameSelected, Integer.parseInt(editCourseTermID.getText().toString()));
+
                     repository.update(course);
                     Intent intent = new Intent(CourseDetails.this, CourseList.class);
                     startActivity(intent);
@@ -205,10 +209,9 @@ public class CourseDetails extends AppCompatActivity {
                 String dateSTR = "MM/dd/yyyy";
                 SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
-                Date date;
                 String info = editCourseStartDate.getText().toString();
                 if (info.equals("")) {
-                    info = "01/01/2023";
+                    info = dateFormatted;
                 }
                 try {
                     myCalStart.setTime(dateSDF.parse(info));
@@ -226,8 +229,6 @@ public class CourseDetails extends AppCompatActivity {
                 myCalStart.set(Calendar.YEAR, year);
                 myCalStart.set(Calendar.MONTH, month);
                 myCalStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String dateSTR = "MM/dd/yyyy";
-                SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
                 refreshStartDate();
             }
@@ -239,10 +240,9 @@ public class CourseDetails extends AppCompatActivity {
                 String dateSTR = "MM/dd/yyyy";
                 SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
-                Date date;
                 String info = editCourseEndDate.getText().toString();
                 if (info.equals("")) {
-                    info = "01/01/2023";
+                    info = dateFormatted;
                 }
                 try {
                     myCalEnd.setTime(dateSDF.parse(info));
@@ -295,7 +295,7 @@ public class CourseDetails extends AppCompatActivity {
         return true;
     }
 
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
@@ -305,9 +305,15 @@ public class CourseDetails extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.courseAddAssessment) {
-            //TODO Figure out how to add an Assessment to a Course
-
-            return true;
+            for (Course course : repository.getAllCourses()) {
+                if (course.getCourseID() == courseID) {
+                    Intent intent = new Intent(CourseDetails.this, AddAssessmentToCourse.class);
+                    intent.putExtra("courseID", courseID);
+                    startActivity(intent);
+                    return true;
+                }
+            }
+            return false;
         }
 
         if (item.getItemId() == R.id.courseShareNote) {

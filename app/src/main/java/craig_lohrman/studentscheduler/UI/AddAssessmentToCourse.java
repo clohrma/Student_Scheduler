@@ -12,5 +12,7 @@ public class AddAssessmentToCourse extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_assessment_to_course);
+
+
     }
 }

@@ -1,8 +1,9 @@
 <resources>
-    <string name="app_name">Student Scheduler</string>
+    <string name="add_a_course">Add/Delete a Course</string>
     <string name="add_assessment_to_course">Add an Assessment to a Course</string>
     <string name="add_course_to_term">Add a Course To a Term</string>
     <string name="add_sample_data">Add Sample Data</string>
+    <string name="app_name">Student Scheduler</string>
     <string name="assessment_course_id">Assessment\nCourse ID</string>
     <string name="assessment_course_id_ex">Course ID</string>
     <string name="assessment_details_title">Assessment Details</string>
@@ -60,7 +61,7 @@
     <string name="term_name">Term\nName</string>
     <string name="term_sample_text">Freshmen Fall</string>
     <string name="term_start">Term\nStart Date</string>
-
+    <string name="add_delete_assessment">Add/Delete Assessment</string>
 
     <string-array name="assessment_type_list">
         <item>Performance</item>
