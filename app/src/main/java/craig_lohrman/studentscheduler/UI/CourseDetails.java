@@ -45,7 +45,7 @@ public class CourseDetails extends AppCompatActivity {
     String dateFormatted = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
     EditText editCourseTermID, editCourseName, editCourseStartDate, editCourseEndDate, editShareNote;
     String cNameString, cStartDateString, cEndDateString, cShareNoteString, cStatusString, cInstructorName;
-    String cStatusStringSelected, instructorNameSelected, spinnerInstructorName, spinnerTermId;
+    String cStatusStringSelected, instructorNameSelected;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
     final Calendar myCalStart = Calendar.getInstance();
     final Calendar myCalEnd = Calendar.getInstance();
@@ -76,7 +76,6 @@ public class CourseDetails extends AppCompatActivity {
         cInstructorName = getIntent().getStringExtra("courseInstructorName");
         courseTermID = getIntent().getIntExtra("courseTermID", -1);
 
-        editCourseTermID.setText(String.valueOf(courseTermID));
         editCourseName.setText(cNameString);
         editCourseStartDate.setText(cStartDateString);
         editCourseEndDate.setText(cEndDateString);
@@ -299,11 +298,6 @@ public class CourseDetails extends AppCompatActivity {
         String dateSTR = "MM/dd/yyyy";
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
-        if (item.getItemId() == android.R.id.home) {
-            this.finish();
-            return true;
-        }
-
         if (item.getItemId() == R.id.courseAddAssessment) {
             for (Course course : repository.getAllCourses()) {
                 if (course.getCourseID() == courseID) {
@@ -337,7 +331,7 @@ public class CourseDetails extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Long trigger = date.getTime();
+            long trigger = date.getTime();
             Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
             intent.putExtra("key", courseStartDate + " is set.");
             PendingIntent senderStart = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -347,6 +341,7 @@ public class CourseDetails extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.courseNotifyEnd) {
+            /*
             String courseStartDate = editCourseStartDate.getText().toString();
             Date date = null;
 
@@ -356,12 +351,12 @@ public class CourseDetails extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Long trigger = date.getTime();
+            long trigger = date.getTime();
             Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
             intent.putExtra("key", courseStartDate + " is removed.");
             PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);*/
             return true;
         }
         return super.onOptionsItemSelected(item);

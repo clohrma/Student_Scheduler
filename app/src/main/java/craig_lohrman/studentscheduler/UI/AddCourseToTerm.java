@@ -119,8 +119,7 @@ public class AddCourseToTerm extends AppCompatActivity {
         for (int i = 0; i < allCourses.size(); i++) {
             currentCourse = allCourses.get(i);
             if (currentCourse.getCourseTermID() == termID && termID != -1) {
-                String itemCourseName = currentCourse.getCourseName();
-                return itemCourseName;
+                return currentCourse.getCourseName();
             }
         }
         return null;
