@@ -13,21 +13,69 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentScheduler"
-        tools:targetApi="31">
+        tools:targetApi="33">
+
+
+        <receiver
+            android:name=".UI.MyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
         <activity
-            android:name=".UI.AddAssessmentToCourse"
+            android:name=".UI.TermList"
             android:exported="false"
-            android:label="@string/add_assessment_to_course"
+            android:label="@string/term_list_title"
+            android:parentActivityName=".UI.MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".UI.TermDetails"
+            android:exported="false"
+            android:label="@string/term_details_title"
+            android:parentActivityName=".UI.TermList">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".UI.CourseList"
+            android:exported="false"
+            android:label="@string/course_list_title"
+            android:parentActivityName=".UI.MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".UI.CourseDetails"
+            android:exported="false"
+            android:label="@string/course_details_title"
             android:parentActivityName=".UI.CourseList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
-            android:name=".UI.AddCourseToTerm"
+            android:name=".UI.InstructorList"
             android:exported="false"
-            android:label="@string/add_course_to_term"
-            android:parentActivityName=".UI.TermList">
+            android:label="@string/instructor_list_title"
+            android:parentActivityName=".UI.MainActivity">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".UI.InstructorDetails"
+            android:exported="false"
+            android:label="@string/instructor_title"
+            android:parentActivityName=".UI.CourseList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
@@ -42,30 +90,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.CourseList"
-            android:exported="false"
-            android:label="@string/course_list_title"
-            android:parentActivityName=".UI.MainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UI.InstructorDetails"
-            android:exported="false"
-            android:label="@string/instructor_title"
-            android:parentActivityName=".UI.CourseList">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <receiver
-            android:name=".UI.MyReceiver"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity
             android:name=".UI.AssessmentDetails"
             android:exported="false"
             android:label="@string/assessment_details_title"
@@ -75,28 +99,19 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".UI.TermDetails"
+            android:name=".UI.AddAssessmentToCourse"
             android:exported="false"
-            android:label="@string/term_details_title"
-            android:parentActivityName=".UI.TermList">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UI.TermList"
-            android:exported="false"
-            android:label="@string/term_list_title"
-            android:parentActivityName=".UI.MainActivity">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
-            android:name=".UI.CourseDetails"
-            android:exported="false"
-            android:label="@string/course_details_title"
+            android:label="@string/add_assessment_to_course"
             android:parentActivityName=".UI.CourseList">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".UI.AddCourseToTerm"
+            android:exported="false"
+            android:label="@string/add_course_to_term"
+            android:parentActivityName=".UI.TermList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

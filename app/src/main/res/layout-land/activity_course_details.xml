@@ -27,9 +27,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:text="@string/course_name"
+                    android:text="@string/course_name_land"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <EditText
@@ -48,9 +48,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:text="@string/course_start_date" />
+                    android:text="@string/course_start_date_land" />
 
                 <EditText
                     android:id="@+id/courseStartDateET"
@@ -68,9 +68,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:text="@string/course_end_date" />
+                    android:text="@string/course_end_date_land" />
 
                 <EditText
                     android:id="@+id/courseEndDateET"
@@ -88,9 +88,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
-                    android:text="@string/course_instructor_name"
+                    android:text="@string/course_instructor_name_land"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <Spinner
@@ -106,7 +106,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="150dp"
+                    android:layout_width="200dp"
                     android:layout_height="match_parent"
                     android:text="@string/share_note"
                     app:layout_constraintTop_toTopOf="parent" />

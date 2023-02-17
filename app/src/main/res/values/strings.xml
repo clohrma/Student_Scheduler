@@ -2,6 +2,7 @@
     <string name="add_a_course">Add/Delete a Course</string>
     <string name="add_assessment_to_course">Add an Assessment to a Course</string>
     <string name="add_course_to_term">Add a Course To a Term</string>
+    <string name="add_delete_assessment">Add/Delete Assessment</string>
     <string name="add_sample_data">Add Sample Data</string>
     <string name="app_name">Student Scheduler</string>
     <string name="assessment_course_id">Assessment\nCourse ID</string>
@@ -35,6 +36,8 @@
     <string name="home_screen_title">Student Scheduler</string>
     <string name="instructor_email">Email</string>
     <string name="instructor_email_ex">xx@xx.xxx</string>
+    <string name="instructor_list_button">Instructor List</string>
+    <string name="instructor_list_title">Instructor List</string>
     <string name="instructor_name">Instructor Name</string>
     <string name="instructor_phone">Phone</string>
     <string name="instructor_phone_ex">123–456–7890</string>
@@ -46,8 +49,8 @@
     <string name="no_instructor_selected">"No Instructor Selected"</string>
     <string name="no_terms_listed">No Terms Listed</string>
     <string name="notes">Notes</string>
-    <string name="notify_end">Remove Notification</string>
-    <string name="notify_start">Add Notification</string>
+    <string name="notify_end">End Date Notification</string>
+    <string name="notify_start">Start Date Notification</string>
     <string name="save_button">Save</string>
     <string name="share_note">Share Note</string>
     <string name="spinner_text">Status</string>
@@ -61,7 +64,19 @@
     <string name="term_name">Term\nName</string>
     <string name="term_sample_text">Freshmen Fall</string>
     <string name="term_start">Term\nStart Date</string>
-    <string name="add_delete_assessment">Add/Delete Assessment</string>
+
+    <string name="assessment_course_id_land">Assessment Course ID</string>
+    <string name="assessment_end_date_land">Assessment End Date</string>
+    <string name="assessment_name_land">Assessment Name</string>
+    <string name="assessment_start_date_land">Assessment Start Date</string>
+    <string name="course_end_date_land">Course End Date</string>
+    <string name="course_instructor_name_land">Instructor Name</string>
+    <string name="course_name_land">Course Name</string>
+    <string name="course_start_date_land">Course Start Date</string>
+    <string name="courses_term_id_land">Course Term ID</string>
+    <string name="term_end_land">Term End Date</string>
+    <string name="term_name_land">Term Name</string>
+    <string name="term_start_land">Term Start Date</string>
 
     <string-array name="assessment_type_list">
         <item>Performance</item>

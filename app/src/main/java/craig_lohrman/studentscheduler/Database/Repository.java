@@ -213,13 +213,13 @@ public class Repository {
         }
     }
 
-    public void delete(Instructor instructor) {
-        databaseExecutor.execute(() -> {
+    public void delete(Instructor instructor){
+        databaseExecutor.execute(() ->{
             mInstructorDAO.delete(instructor);
         });
-        try {
+        try{
             Thread.sleep(1000);
-        } catch (InterruptedException e) {
+        } catch(InterruptedException e){
             e.printStackTrace();
         }
     }

@@ -10,25 +10,27 @@
         android:id="@+id/home_screen_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="4dp"
         android:text="@string/home_screen_title"
         android:textAlignment="center"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/mainLogo"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:contentDescription="@string/start_icon_desc"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toTopOf="@+id/buttonLayout"
-        app:layout_constraintTop_toBottomOf="@id/home_screen_title"
+        app:layout_constraintHorizontal_bias="0.499"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_screen_title" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/buttonLayout"

@@ -15,13 +15,16 @@ import java.util.List;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Instructor;
 
-public class InstructorAdapter  extends RecyclerView.Adapter<InstructorAdapter.InstructorViewHolder> {
+public class InstructorAdapter extends RecyclerView.Adapter<InstructorAdapter.InstructorViewHolder> {
 
     class InstructorViewHolder extends RecyclerView.ViewHolder {
-        private final TextView instructorName, instructorPhone, instructorEmail;
+        private final TextView instructorName;
+        private final TextView instructorPhone;
+        private final TextView instructorEmail;
 
-        private InstructorViewHolder(View itemView){
+        private InstructorViewHolder(View itemView) {
             super(itemView);
+
             instructorName = itemView.findViewById(R.id.instructorNameTV);
             instructorPhone = itemView.findViewById(R.id.instructorPhoneTV);
             instructorEmail = itemView.findViewById(R.id.instructorEmailTV);
@@ -61,7 +64,7 @@ public class InstructorAdapter  extends RecyclerView.Adapter<InstructorAdapter.I
 
     @Override
     public void onBindViewHolder(@NonNull InstructorViewHolder holder, int position) {
-        if(mInstructor != null) {
+        if (mInstructor != null) {
             Instructor current = mInstructor.get(position);
             String iName = current.getInstructorName();
             String iPhone = current.getInstructorPhone();
@@ -70,8 +73,7 @@ public class InstructorAdapter  extends RecyclerView.Adapter<InstructorAdapter.I
             holder.instructorName.setText(iName);
             holder.instructorPhone.setText(iPhone);
             holder.instructorEmail.setText(iEmail);
-        }
-        else{
+        } else {
             holder.instructorName.setText(R.string.no_instructor_listed);
         }
     }

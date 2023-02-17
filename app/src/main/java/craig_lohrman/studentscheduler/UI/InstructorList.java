@@ -14,43 +14,43 @@ import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
-import craig_lohrman.studentscheduler.entities.Assessment;
+import craig_lohrman.studentscheduler.entities.Instructor;
 
-public class AssessmentList extends AppCompatActivity {
+public class InstructorList extends AppCompatActivity {
 
     Repository repository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assessment_list);
+        setContentView(R.layout.activity_instructor_list);
 
-        FloatingActionButton fab = findViewById(R.id.assessmentListFAB);
+        FloatingActionButton fab = findViewById(R.id.instructorListFAB);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AssessmentList.this, AssessmentDetails.class);
+                Intent intent = new Intent(InstructorList.this, InstructorDetails.class);
                 startActivity(intent);
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.assessmentListRecyclerView);
+        RecyclerView recyclerView = findViewById(R.id.instructorListRecyclerView);
         repository = new Repository(getApplication());
-        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
-        recyclerView.setAdapter(assessmentAdapter);
+        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
+        recyclerView.setAdapter(instructorAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Assessment> allAssessments = repository.getAllAssessments();
-        assessmentAdapter.setAssessment(allAssessments);
+        List<Instructor> allInstructors = repository.getAllInstructors();
+        instructorAdapter.setInstructors(allInstructors);
     }
 
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
-        List<Assessment> allAssessment = repository.getAllAssessments();
-        RecyclerView recyclerView = findViewById(R.id.assessmentListRecyclerView);
-        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
-        recyclerView.setAdapter(assessmentAdapter);
+        List<Instructor> allInstructors = repository.getAllInstructors();
+        RecyclerView recyclerView = findViewById(R.id.instructorListRecyclerView);
+        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
+        recyclerView.setAdapter(instructorAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        assessmentAdapter.setAssessment(allAssessment);
+        instructorAdapter.setInstructors(allInstructors);
     }
 }

@@ -109,20 +109,23 @@ public class TermDetails extends AppCompatActivity {
 
                 numCourses = 0;
                 for (Course course : repository.getAllCourses()) {
-                    if (course.getCourseTermID() == termID && termID != -1) {
+                    int currentCourseTermID = course.getCourseTermID();
+                    int currentTermID = currentTerm.getTermID();
+
+                    if (currentCourseTermID == currentTermID) {
                         numCourses++;
                     }
+                }
 
-                    if (numCourses != 0) {
-                        Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
+                if (numCourses != 0) {
+                    Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
 
-                        refreshTermRecycler();
-                    } else {
-                        repository.delete(currentTerm);
-                        Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
+                    refreshTermRecycler();
+                } else {
+                    repository.delete(currentTerm);
+                    Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
 
-                        refreshTermRecycler();
-                    }
+                    refreshTermRecycler();
                 }
             }
         });

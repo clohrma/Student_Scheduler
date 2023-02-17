@@ -43,7 +43,7 @@ import craig_lohrman.studentscheduler.entities.Term;
 public class CourseDetails extends AppCompatActivity {
 
     String dateFormatted = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(new Date());
-    EditText editCourseTermID, editCourseName, editCourseStartDate, editCourseEndDate, editShareNote;
+    EditText editCourseName, editCourseStartDate, editCourseEndDate, editShareNote;
     String cNameString, cStartDateString, cEndDateString, cShareNoteString, cStatusString, cInstructorName;
     String cStatusStringSelected, instructorNameSelected;
     DatePickerDialog.OnDateSetListener startDateDP, endDateDP;
@@ -81,25 +81,15 @@ public class CourseDetails extends AppCompatActivity {
         editCourseEndDate.setText(cEndDateString);
         editShareNote.setText(cShareNoteString);
 
-        FloatingActionButton addInstructor = findViewById(R.id.courseInstructorAdd);
-        addInstructor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(CourseDetails.this, InstructorDetails.class);
-                intent.putExtra("courseID", courseID);
-                startActivity(intent);
-            }
-        });
-
-        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
         repository = new Repository(getApplication());
+        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
         final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
         recyclerView.setAdapter(assessmentAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Assessment> filteredAssessments = new ArrayList<>();
         for (Assessment a : repository.getAllAssessments()) {
-            if (a.getAssessmentCourseID() == courseTermID) {
+            if (a.getAssessmentCourseID() == courseID) {
                 filteredAssessments.add(a);
             }
         }
@@ -163,7 +153,7 @@ public class CourseDetails extends AppCompatActivity {
                 } else {
                     course = new Course(courseID, editCourseName.getText().toString(), editCourseStartDate.getText().toString(),
                             editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(),
-                            instructorNameSelected, Integer.parseInt(editCourseTermID.getText().toString()));
+                            instructorNameSelected, courseTermID);
 
                     repository.update(course);
                     Intent intent = new Intent(CourseDetails.this, CourseList.class);
@@ -187,17 +177,16 @@ public class CourseDetails extends AppCompatActivity {
                     if (assessment.getAssessmentCourseID() == courseID) {
                         ++numAssessments;
                     }
+                }
 
-                    if (numAssessments == 0) {
-                        repository.delete(currentCourse);
-                        Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
+                if (numAssessments == 0) {
+                    repository.delete(currentCourse);
+                    Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
 
-                        refreshCourseRecycler();
-                    } else {
-                        Toast.makeText(CourseDetails.this, "Cannot delete " + currentCourse.getCourseName() + " with Assessment(s) assigned to it.", Toast.LENGTH_LONG).show();
-
-                        refreshCourseRecycler();
-                    }
+                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(CourseDetails.this, "Cannot delete " + currentCourse.getCourseName() + " with Assessment(s) assigned to it.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -295,9 +284,6 @@ public class CourseDetails extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        String dateSTR = "MM/dd/yyyy";
-        SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
-
         if (item.getItemId() == R.id.courseAddAssessment) {
             for (Course course : repository.getAllCourses()) {
                 if (course.getCourseID() == courseID) {
@@ -323,17 +309,19 @@ public class CourseDetails extends AppCompatActivity {
 
         if (item.getItemId() == R.id.courseNotifyStart) {
             String courseStartDate = editCourseStartDate.getText().toString();
+            String myFormat = "MM/dd/yy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             Date date = null;
 
             try {
-                date = dateSDF.parse(courseStartDate);
+                date = sdf.parse(courseStartDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            long trigger = date.getTime();
+            Long trigger = date.getTime();
             Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
-            intent.putExtra("key", courseStartDate + " is set.");
+            intent.putExtra("key", "Start Date " + courseStartDate + " is set.");
             PendingIntent senderStart = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
             alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderStart);
@@ -341,53 +329,26 @@ public class CourseDetails extends AppCompatActivity {
         }
 
         if (item.getItemId() == R.id.courseNotifyEnd) {
-            /*
-            String courseStartDate = editCourseStartDate.getText().toString();
+
+            String courseEndDate = editCourseEndDate.getText().toString();
+            String myFormat = "MM/dd/yy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             Date date = null;
 
             try {
-                date = dateSDF.parse(courseStartDate);
+                date = sdf.parse(courseEndDate);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
 
-            long trigger = date.getTime();
+            Long trigger = date.getTime();
             Intent intent = new Intent(CourseDetails.this, MyReceiver.class);
-            intent.putExtra("key", courseStartDate + " is removed.");
+            intent.putExtra("key", "End Date " + courseEndDate + " is set.");
             PendingIntent senderEnd = PendingIntent.getBroadcast(CourseDetails.this, ++MainActivity.numAlert, intent, PendingIntent.FLAG_IMMUTABLE);
             AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);*/
+            alarmManager.set(AlarmManager.RTC_WAKEUP, trigger, senderEnd);
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-
-    private void refreshCourseRecycler() {
-        repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.courseListRecyclerView);
-        final CourseAdapter courseAdapter = new CourseAdapter(this);
-        recyclerView.setAdapter(courseAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Course> allCourses = repository.getAllCourses();
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        List<Assessment> allAssessment = repository.getAllAssessments();
-        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
-        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
-        recyclerView.setAdapter(assessmentAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        assessmentAdapter.setAssessment(allAssessment);
-
-        List<Assessment> filteredAssessment = new ArrayList<>();
-        for (Assessment assessment : allAssessment) {
-            if (assessment.getAssessmentCourseID() == courseID) {
-                filteredAssessment.add(assessment);
-            }
-        }
-        assessmentAdapter.setAssessment(filteredAssessment);
     }
 }

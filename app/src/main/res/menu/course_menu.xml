@@ -3,6 +3,7 @@
 
     <item android:title="@string/add_delete_assessment"
         android:id="@+id/courseAddAssessment" />
+
     <item android:title="@string/share_note"
         android:id="@+id/courseShareNote"/>
 

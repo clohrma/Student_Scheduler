@@ -36,6 +36,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        Button instructorListBtn = findViewById(R.id.instructorListBtn);
+        instructorListBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, InstructorList.class);
+            startActivity(intent);
+        });
+
         Button AssessmentListBtn = findViewById(R.id.assessmentListBtn);
         AssessmentListBtn.setOnClickListener(view -> {
             Intent intent = new Intent(MainActivity.this, AssessmentList.class);

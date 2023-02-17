@@ -1,8 +1,6 @@
 package craig_lohrman.studentscheduler.UI;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +9,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Instructor;
-import craig_lohrman.studentscheduler.entities.Term;
 
 public class InstructorDetails extends AppCompatActivity {
 
@@ -35,6 +31,7 @@ public class InstructorDetails extends AppCompatActivity {
         editInstructorPhone = findViewById(R.id.instructorPhoneET);
         editInstructorEmail = findViewById(R.id.instructorEmailET);
 
+        instructorID = getIntent().getIntExtra("instructorID", -1);
         iNameString = getIntent().getStringExtra("instructorName");
         iPhoneString = getIntent().getStringExtra("instructorPhone");
         iEmailString = getIntent().getStringExtra("instructorEmail");
@@ -45,28 +42,22 @@ public class InstructorDetails extends AppCompatActivity {
         editInstructorEmail.setText(iEmailString);
 
         repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.instructorListRecycler);
-        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
-        recyclerView.setAdapter(instructorAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Instructor> allInstructors = repository.getAllInstructors();
-        instructorAdapter.setInstructors(allInstructors);
 
         Button saveInstructor = findViewById(R.id.saveInstructor);
         saveInstructor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (instructorID != -1) {
+                if (instructorID == -1) {
                     instructor = new Instructor(0, editInstructorName.getText().toString(), editInstructorPhone.getText().toString(),
                             editInstructorEmail.getText().toString(), instructorCourseID);
                     repository.insert(instructor);
-                    Intent intent = new Intent(InstructorDetails.this, CourseDetails.class);
+                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
                     startActivity(intent);
                 } else {
                     instructor = new Instructor(instructorID, editInstructorName.getText().toString(), editInstructorPhone.getText().toString(),
                             editInstructorEmail.getText().toString(), instructorCourseID);
                     repository.update(instructor);
-                    Intent intent = new Intent(InstructorDetails.this, CourseDetails.class);
+                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
                     startActivity(intent);
                 }
             }
@@ -76,20 +67,19 @@ public class InstructorDetails extends AppCompatActivity {
         deleteInstructor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                repository.delete(currentInstructor);
-                Toast.makeText(InstructorDetails.this, "Deleted " + currentInstructor.getInstructorName() + ".", Toast.LENGTH_LONG).show();
+                for (Instructor instructor : repository.getAllInstructors()) {
+                    if (instructor.getInstructorID() == instructorID) {
+                        currentInstructor = instructor;
+                    }
+                }
+                if (currentInstructor.getInstructorID() == instructorID) {
+                    repository.delete(currentInstructor);
+                    Toast.makeText(InstructorDetails.this, currentInstructor.getInstructorName() + " was deleted", Toast.LENGTH_LONG).show();
 
-                refreshInstructorRecycler();
+                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
+                    startActivity(intent);
+                }
             }
         });
-    }
-
-    private void refreshInstructorRecycler() {
-        repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.instructorListRecycler);
-        final InstructorAdapter instructorAdapter = new InstructorAdapter(this);
-        recyclerView.setAdapter(instructorAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Instructor> allInstructors = repository.getAllInstructors();
     }
 }
