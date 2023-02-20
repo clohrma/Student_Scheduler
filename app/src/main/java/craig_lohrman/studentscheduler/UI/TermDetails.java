@@ -66,7 +66,6 @@ public class TermDetails extends AppCompatActivity {
 
         repository = new Repository(getApplication());
         RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
-        //repository = new Repository(getApplication());
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -117,15 +116,15 @@ public class TermDetails extends AppCompatActivity {
                     }
                 }
 
-                if (numCourses != 0) {
-                    Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
-
-                    refreshTermRecycler();
-                } else {
+                if (numCourses == 0) {
                     repository.delete(currentTerm);
                     Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
 
-                    refreshTermRecycler();
+                    Intent intent = new Intent(TermDetails.this, TermList.class);
+                    startActivity(intent);
+
+                } else {
+                    Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -218,14 +217,5 @@ public class TermDetails extends AppCompatActivity {
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
         editTermEndDate.setText(dateSDF.format(myCalEnd.getTime()));
-    }
-
-    private void refreshTermRecycler() {
-        repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.termListRecyclerView);
-        final TermAdapter termAdapter = new TermAdapter(this);
-        recyclerView.setAdapter(termAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        List<Term> allTerms = repository.getAllTerms();
     }
 }

@@ -16,7 +16,8 @@ import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Course;
 
-public class AddCourseToTerm extends AppCompatActivity {
+public class
+AddCourseToTerm extends AppCompatActivity {
 
     int receivedTermID, currentCourseID, removeCourseTermID;
     String courseNameSelected, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus, currentCourseShareNote, currentCourseInstructorName;
@@ -73,7 +74,8 @@ public class AddCourseToTerm extends AppCompatActivity {
                     course = new Course(currentCourseID, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus,
                             currentCourseShareNote, currentCourseInstructorName, receivedTermID);
                     repository.update(course);
-                    Intent intent = new Intent(AddCourseToTerm.this, TermList.class);
+                    Intent intent = new Intent(AddCourseToTerm.this, TermDetails.class);
+                    intent.putExtra("termID", receivedTermID);
                     startActivity(intent);
                 }
             }
@@ -97,7 +99,7 @@ public class AddCourseToTerm extends AppCompatActivity {
                     course = new Course(currentCourseID, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus,
                             currentCourseShareNote, currentCourseInstructorName, removeCourseTermID);
                     repository.update(course);
-                    Intent intent = new Intent(AddCourseToTerm.this, TermList.class);
+                    Intent intent = new Intent(AddCourseToTerm.this, TermDetails.class);
                     startActivity(intent);
                 }
             }

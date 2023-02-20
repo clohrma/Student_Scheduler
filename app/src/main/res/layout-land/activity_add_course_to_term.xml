@@ -6,51 +6,41 @@
     android:layout_height="match_parent"
     tools:context=".UI.AddCourseToTerm">
 
-    <ScrollView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/courseToTermBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:text="@string/course_name_land" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/courseToTermBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+        <Spinner
+            android:id="@+id/addCourseToTermSpinner"
+            android:layout_width="500dp"
+            android:layout_height="match_parent" />
 
-                <TextView
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/course_name_land" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-                <Spinner
-                    android:id="@+id/addCourseToTermSpinner"
-                    android:layout_width="500dp"
-                    android:layout_height="match_parent" />
+    <Button
+        android:id="@+id/saveCourseToTerm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/save_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/courseToTermBox" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-            <Button
-                android:id="@+id/saveCourseToTerm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/save_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/courseToTermBox" />
-
-            <Button
-                android:id="@+id/deleteCourseFromTerm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/delete_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveCourseToTerm" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
+    <Button
+        android:id="@+id/deleteCourseFromTerm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/delete_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveCourseToTerm" />
 </androidx.constraintlayout.widget.ConstraintLayout>
