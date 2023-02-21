@@ -51,14 +51,18 @@ public class InstructorDetails extends AppCompatActivity {
                     instructor = new Instructor(0, editInstructorName.getText().toString(), editInstructorPhone.getText().toString(),
                             editInstructorEmail.getText().toString(), instructorCourseID);
                     repository.insert(instructor);
-                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
-                    startActivity(intent);
+
+                    finish();
+                    //Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
+                    //startActivity(intent);
                 } else {
                     instructor = new Instructor(instructorID, editInstructorName.getText().toString(), editInstructorPhone.getText().toString(),
                             editInstructorEmail.getText().toString(), instructorCourseID);
                     repository.update(instructor);
-                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
-                    startActivity(intent);
+
+                    finish();
+                    //Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -76,8 +80,9 @@ public class InstructorDetails extends AppCompatActivity {
                     repository.delete(currentInstructor);
                     Toast.makeText(InstructorDetails.this, currentInstructor.getInstructorName() + " was deleted", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(InstructorDetails.this, InstructorList.class);
+                    //startActivity(intent);
                 }
             }
         });

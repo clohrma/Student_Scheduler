@@ -7,6 +7,7 @@
     <string name="app_name">Student Scheduler</string>
     <string name="assessment_course_id">Assessment\nCourse ID</string>
     <string name="assessment_course_id_ex">Course ID</string>
+    <string name="assessment_course_name_ex">Course Name</string>
     <string name="assessment_details_title">Assessment Details</string>
     <string name="assessment_end_date">Assessment\nEnd Date</string>
     <string name="assessment_list_button">Assessment List</string>
@@ -77,6 +78,7 @@
     <string name="term_end_land">Term End Date</string>
     <string name="term_name_land">Term Name</string>
     <string name="term_start_land">Term Start Date</string>
+    <string name="home_screen">Home Screen</string>
 
     <string-array name="assessment_type_list">
         <item>Performance</item>

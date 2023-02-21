@@ -1,5 +1,6 @@
 package craig_lohrman.studentscheduler.UI;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -88,9 +89,9 @@ public class CourseDetails extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         List<Assessment> filteredAssessments = new ArrayList<>();
-        for (Assessment a : repository.getAllAssessments()) {
-            if (a.getAssessmentCourseID() == courseID) {
-                filteredAssessments.add(a);
+        for (Assessment assessment : repository.getAllAssessments()) {
+            if (assessment.getAssessmentCourseID() == courseID) {
+                filteredAssessments.add(assessment);
             }
         }
         assessmentAdapter.setAssessment(filteredAssessments);
@@ -148,16 +149,18 @@ public class CourseDetails extends AppCompatActivity {
                             instructorNameSelected, courseTermID);
 
                     repository.insert(course);
-                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                    //startActivity(intent);
                 } else {
                     course = new Course(courseID, editCourseName.getText().toString(), editCourseStartDate.getText().toString(),
                             editCourseEndDate.getText().toString(), cStatusStringSelected, editShareNote.getText().toString(),
                             instructorNameSelected, courseTermID);
 
                     repository.update(course);
-                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -183,8 +186,9 @@ public class CourseDetails extends AppCompatActivity {
                     repository.delete(currentCourse);
                     Toast.makeText(CourseDetails.this, "Deleted " + currentCourse.getCourseName() + ".", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(CourseDetails.this, CourseList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(CourseDetails.this, CourseList.class);
+                    //startActivity(intent);
                 } else {
                     Toast.makeText(CourseDetails.this, "Cannot delete " + currentCourse.getCourseName() + " with Assessment(s) assigned to it.", Toast.LENGTH_LONG).show();
                 }
@@ -289,6 +293,7 @@ public class CourseDetails extends AppCompatActivity {
                 if (course.getCourseID() == courseID) {
                     Intent intent = new Intent(CourseDetails.this, AddAssessmentToCourse.class);
                     intent.putExtra("courseID", courseID);
+                    intent.putExtra("courseName", cNameString);
                     startActivity(intent);
                     return true;
                 }
@@ -350,5 +355,23 @@ public class CourseDetails extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
+        final AssessmentAdapter assessmentAdapter = new AssessmentAdapter(this);
+        recyclerView.setAdapter(assessmentAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        List<Assessment> filteredAssessments = new ArrayList<>();
+        for (Assessment assessment : repository.getAllAssessments()) {
+            if (assessment.getAssessmentCourseID() == courseID) {
+                filteredAssessments.add(assessment);
+            }
+        }
+        assessmentAdapter.setAssessment(filteredAssessments);
     }
 }

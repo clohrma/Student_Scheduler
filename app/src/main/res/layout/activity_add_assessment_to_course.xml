@@ -6,51 +6,61 @@
     android:layout_height="match_parent"
     tools:context=".UI.AddAssessmentToCourse">
 
-    <ScrollView
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/termNameBox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="@string/course_name" />
+
+        <TextView
+            android:id="@+id/addAssessment_CourseName_TV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:hint="@string/assessment_course_name_ex"
+            android:inputType="text" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/assessmentToCourseBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/assessmentToCourseBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/termNameBox">
 
-                <TextView
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:text="@string/assessment_name" />
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="@string/assessment_name" />
 
-                <Spinner
-                    android:id="@+id/addAssessmentToCourse"
-                    android:layout_width="260dp"
-                    android:layout_height="match_parent" />
+        <Spinner
+            android:id="@+id/addAssessmentToCourse"
+            android:layout_width="260dp"
+            android:layout_height="match_parent" />
 
-            </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <Button
-                android:id="@+id/saveAssessmentToCourse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/save_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/assessmentToCourseBox" />
+    <Button
+        android:id="@+id/saveAssessmentToCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/save_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assessmentToCourseBox" />
 
-            <Button
-                android:id="@+id/deleteAssessmentToCourse"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:text="@string/delete_button"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saveAssessmentToCourse" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-    </ScrollView>
+    <Button
+        android:id="@+id/deleteAssessmentToCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="@string/delete_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/saveAssessmentToCourse" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

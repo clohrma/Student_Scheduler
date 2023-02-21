@@ -54,6 +54,7 @@ public class CourseList extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        System.out.println("..................................In Course OnResume");
         List<Course> allCourses = repository.getAllCourses();
         RecyclerView recyclerView = findViewById(R.id.courseListRecyclerView);
         final CourseAdapter courseAdapter = new CourseAdapter(this);

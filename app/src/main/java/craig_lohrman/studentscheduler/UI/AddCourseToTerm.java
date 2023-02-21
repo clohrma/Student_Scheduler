@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -19,8 +20,9 @@ import craig_lohrman.studentscheduler.entities.Course;
 public class
 AddCourseToTerm extends AppCompatActivity {
 
+    TextView termNameTV;
     int receivedTermID, currentCourseID, removeCourseTermID;
-    String courseNameSelected, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus, currentCourseShareNote, currentCourseInstructorName;
+    String receivedTermName, courseNameSelected, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus, currentCourseShareNote, currentCourseInstructorName;
     Spinner courseSpinner;
     Repository repository;
     Course currentCourse, course;
@@ -34,6 +36,11 @@ AddCourseToTerm extends AppCompatActivity {
 
         intent = getIntent();
         receivedTermID = intent.getIntExtra("termID", -1);
+        receivedTermName = intent.getStringExtra("termName");
+
+        termNameTV = findViewById(R.id.addCourse_TermName_TV);
+        termNameTV.setText(receivedTermName);
+
         repository = new Repository(getApplication());
 
         allCourses = repository.getAllCourses();
@@ -74,9 +81,8 @@ AddCourseToTerm extends AppCompatActivity {
                     course = new Course(currentCourseID, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus,
                             currentCourseShareNote, currentCourseInstructorName, receivedTermID);
                     repository.update(course);
-                    Intent intent = new Intent(AddCourseToTerm.this, TermDetails.class);
-                    intent.putExtra("termID", receivedTermID);
-                    startActivity(intent);
+
+                    finish();
                 }
             }
         });
@@ -99,8 +105,8 @@ AddCourseToTerm extends AppCompatActivity {
                     course = new Course(currentCourseID, currentCourseName, currentCourseStartDate, currentCourseEndDate, currentCourseStatus,
                             currentCourseShareNote, currentCourseInstructorName, removeCourseTermID);
                     repository.update(course);
-                    Intent intent = new Intent(AddCourseToTerm.this, TermDetails.class);
-                    startActivity(intent);
+
+                    finish();
                 }
             }
         });

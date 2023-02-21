@@ -65,7 +65,7 @@ public class TermDetails extends AppCompatActivity {
         editTermEndDate.setText(endDateString);
 
         repository = new Repository(getApplication());
-        RecyclerView recyclerView = findViewById(R.id.courseDetailsRecycler);
+        RecyclerView recyclerView = findViewById(R.id.termDetailsRecycler);
         final CourseAdapter courseAdapter = new CourseAdapter(this);
         recyclerView.setAdapter(courseAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -85,13 +85,16 @@ public class TermDetails extends AppCompatActivity {
                 if (termID == -1) {
                     term = new Term(0, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.insert(term);
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(TermDetails.this, TermList.class);
+                    //startActivity(intent);
                 } else {
                     term = new Term(termID, editTermName.getText().toString(), editTermStartDate.getText().toString(), editTermEndDate.getText().toString());
                     repository.update(term);
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
-                    startActivity(intent);
+
+                    finish();
+                    //Intent intent = new Intent(TermDetails.this, TermList.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -120,9 +123,7 @@ public class TermDetails extends AppCompatActivity {
                     repository.delete(currentTerm);
                     Toast.makeText(TermDetails.this, "Deleted " + currentTerm.getTermName() + ".", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(TermDetails.this, TermList.class);
-                    startActivity(intent);
-
+                    finish();
                 } else {
                     Toast.makeText(TermDetails.this, "Cannot delete " + currentTerm.getTermName() + " with Course(s) assigned to it.", Toast.LENGTH_LONG).show();
                 }
@@ -194,12 +195,15 @@ public class TermDetails extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        for (Term term : repository.getAllTerms()) {
-            if (term.getTermID() == termID) {
-                Intent intent = new Intent(TermDetails.this, AddCourseToTerm.class);
-                intent.putExtra("termID", termID);
-                startActivity(intent);
-                return true;
+        if(item.getItemId() == R.id.termAddCourse) {
+            for (Term term : repository.getAllTerms()) {
+                if (term.getTermID() == termID) {
+                    Intent intent = new Intent(TermDetails.this, AddCourseToTerm.class);
+                    intent.putExtra("termID", termID);
+                    intent.putExtra("termName", termNameString);
+                    startActivity(intent);
+                    return true;
+                }
             }
         }
         return false;
@@ -217,5 +221,22 @@ public class TermDetails extends AppCompatActivity {
         SimpleDateFormat dateSDF = new SimpleDateFormat(dateSTR, Locale.US);
 
         editTermEndDate.setText(dateSDF.format(myCalEnd.getTime()));
+    }
+
+    protected void onResume() {
+        super.onResume();
+
+        RecyclerView recyclerView = findViewById(R.id.termDetailsRecycler);
+        final CourseAdapter courseAdapter = new CourseAdapter(this);
+        recyclerView.setAdapter(courseAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        List<Course> filteredCourses = new ArrayList<>();
+        for (Course course : repository.getAllCourses()) {
+            if (course.getCourseTermID() == termID) {
+                filteredCourses.add(course);
+            }
+        }
+        courseAdapter.setCourses(filteredCourses);
     }
 }

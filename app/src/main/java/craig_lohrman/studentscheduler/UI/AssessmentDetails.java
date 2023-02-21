@@ -105,14 +105,18 @@ public class AssessmentDetails extends AppCompatActivity {
                     assessment = new Assessment(0, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
                             editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.insert(assessment);
-                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
-                    startActivity(intent);
+
+                    finish();
+                    //Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+                    //startActivity(intent);
                 } else {
                     assessment = new Assessment(assessmentID, editAssessmentName.getText().toString(), editAssessmentStartDate.getText().toString(),
                             editAssessmentEndDate.getText().toString(), aType, assessmentCourseID);
                     repository.update(assessment);
-                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
-                    startActivity(intent);
+
+                    finish();
+                    //Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -130,8 +134,9 @@ public class AssessmentDetails extends AppCompatActivity {
                     repository.delete(currentAssessment);
                     Toast.makeText(AssessmentDetails.this, currentAssessment.getAssessmentName() + " was deleted", Toast.LENGTH_LONG).show();
 
-                    Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
-                    startActivity(intent);
+                    finish();
+                    //Intent intent = new Intent(AssessmentDetails.this, AssessmentList.class);
+                    //startActivity(intent);
                 }
             }
         });
@@ -214,7 +219,6 @@ public class AssessmentDetails extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
         if (item.getItemId() == R.id.assessmentNotifyStart) {
             String assessmentStartDate = editAssessmentStartDate.getText().toString();
             String myFormat = "MM/dd/yy";

@@ -75,7 +75,7 @@
             android:name=".UI.InstructorDetails"
             android:exported="false"
             android:label="@string/instructor_title"
-            android:parentActivityName=".UI.CourseList">
+            android:parentActivityName=".UI.InstructorList">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

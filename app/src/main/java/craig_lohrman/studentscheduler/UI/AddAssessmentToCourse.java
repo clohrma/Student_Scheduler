@@ -9,18 +9,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.List;
 
 import craig_lohrman.studentscheduler.Database.Repository;
 import craig_lohrman.studentscheduler.R;
 import craig_lohrman.studentscheduler.entities.Assessment;
-import craig_lohrman.studentscheduler.entities.Course;
 
 public class AddAssessmentToCourse extends AppCompatActivity {
 
+    TextView courseNameTV;
     int receiveCourseID, currentAssessmentID;
     String assessmentNameSelected, currentAssessmentName, currentAssessmentStartDate, currentAssessmentEndDate, currentAssessmentType;
+    String courseName;
     Spinner assessmentSpinner;
     Repository repository;
     Assessment currentAssessment, assessment;
@@ -34,8 +36,12 @@ public class AddAssessmentToCourse extends AppCompatActivity {
 
         intent = getIntent();
         receiveCourseID = intent.getIntExtra("courseID", -1);
-        repository = new Repository(getApplication());
+        courseName = intent.getStringExtra("courseName");
 
+        courseNameTV = findViewById(R.id.addAssessment_CourseName_TV);
+        courseNameTV.setText(courseName);
+
+        repository = new Repository(getApplication());
         allAssessments = repository.getAllAssessments();
         assessmentSpinner = findViewById(R.id.addAssessmentToCourse);
         ArrayAdapter<Assessment> assessmentArrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, allAssessments);
@@ -72,8 +78,8 @@ public class AddAssessmentToCourse extends AppCompatActivity {
                     assessment = new Assessment(currentAssessmentID, currentAssessmentName, currentAssessmentStartDate,
                             currentAssessmentEndDate, currentAssessmentType, receiveCourseID);
                     repository.update(assessment);
-                    Intent intent = new Intent(AddAssessmentToCourse.this, CourseList.class);
-                    startActivity(intent);
+
+                    finish();
                 }
             }
         });
@@ -94,8 +100,8 @@ public class AddAssessmentToCourse extends AppCompatActivity {
                     assessment = new Assessment(currentAssessmentID, currentAssessmentName, currentAssessmentStartDate,
                             currentAssessmentEndDate, currentAssessmentType, receiveCourseID);
                     repository.update(assessment);
-                    Intent intent = new Intent(AddAssessmentToCourse.this, CourseList.class);
-                    startActivity(intent);
+
+                    finish();
                 }
             }
         });
